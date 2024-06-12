@@ -37,9 +37,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({ icon, name }) => {
         />
       )}
       {name && (
-        <span className="font-semibold text-xs text-white whitespace-nowrap">
-          {name}
-        </span>
+        <span className="font-semibold text-xs  whitespace-nowrap">{name}</span>
       )}
     </div>
   );
