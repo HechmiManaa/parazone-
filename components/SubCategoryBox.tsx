@@ -12,26 +12,24 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({ icon, name }) => {
   return (
     <div
       className="
-        flex 
+        flex
+        flex-wrap
         border-2
         rounded-xl
         p-4
         items-center 
         justify-center 
         gap-2
-        text-white
+        blue
         cursor-pointer
         border-white
-        hover:text-white
+        hover:text-black
         transition
         hover:scale-105
         transform
         shadow-lg
-        bg-gradient-to-r
-        from-bluee-600
-        to-indigo-600
-        hover:from-purple-500
-        hover:to-indigo-500
+        bg-gray-200
+       
       "
     >
       {icon ? (
@@ -46,7 +44,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({ icon, name }) => {
         <div className="w-8 lg:w-12 h-8 lg:h-12 bg-gray-300 rounded-full"></div>
       )}
       {name && (
-        <span className="font-semibold text-md lg:text-lg text-white whitespace-nowrap">
+        <span className="font-semibold text-sm lg:text-base  whitespace-nowrap">
           {name}
         </span>
       )}
