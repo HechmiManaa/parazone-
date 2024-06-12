@@ -4,10 +4,14 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Prices, usePricesStore } from "@/hooks/usePrices";
-import { Button } from "@/components/ui/button";
+import { useCategoryStore } from "@/hooks/useCategoryStore";
 
-export default function ProductPage({ params }: { params: { id: number } }) {
-  const id = Number(params.id);
+export default function ProductPage({
+  params,
+}: {
+  params: { productName: string };
+}) {
+  const productName = params.productName;
   const [product, setProduct] = useState<Product | null>();
   const [filteredPrices, setFilteredPrices] = useState<Prices[]>([]);
 
@@ -15,6 +19,10 @@ export default function ProductPage({ params }: { params: { id: number } }) {
 
   const { products, fetchProducts } = useProductStore();
   const { Prices, fetchPrices } = usePricesStore();
+  const { categories, fetchCategories } = useCategoryStore();
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
 
   {
     /*fetching the product by the id in the params*/
@@ -27,7 +35,12 @@ export default function ProductPage({ params }: { params: { id: number } }) {
           await fetchProducts();
         }
 
-        const fetchedProduct = products.find((p) => p.id === id) || null;
+        const fetchedProduct =
+          products.find(
+            (p) =>
+              p.name.toLowerCase() ===
+              decodeURIComponent(productName).toLowerCase()
+          ) || null;
         setProduct(fetchedProduct);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -35,7 +48,7 @@ export default function ProductPage({ params }: { params: { id: number } }) {
     };
 
     fetchProduct();
-  }, [id, fetchProducts, products, products.length]);
+  }, [productName, fetchProducts, products, products.length]);
 
   {
     /*fetching all the prices*/
@@ -48,9 +61,9 @@ export default function ProductPage({ params }: { params: { id: number } }) {
     /*fetching the prices by the product id*/
   }
   useEffect(() => {
-    const filtered = Prices.filter((price) => price.product_id === id);
+    const filtered = Prices.filter((price) => price.product_id === product?.id);
     setFilteredPrices(filtered);
-  }, [Prices]);
+  }, [Prices, productName]);
 
   if (!product) {
     return <div>Loading...</div>;
@@ -135,40 +148,45 @@ export default function ProductPage({ params }: { params: { id: number } }) {
               Related Products
             </h2>
             {products
-              .filter((p) => p.id !== id)
+              .filter((p) => p.name !== productName)
               .slice(0, 4)
-              .map((secondaryProduct, index) => (
-                <Link
-                  href={`/product/${secondaryProduct.id}`}
-                  key={index}
-                  className="block border-b border-gray-300 pb-3 mb-3 last:border-0 last:pb-0 hover:bg-gray-200 transition-colors rounded-lg p-2"
-                >
-                  <div className="flex items-center">
-                    <div className="w-20 h-20 flex-shrink-0">
-                      <Image
-                        src={`https://admin.parazone.tn/assets/${secondaryProduct.url}`}
-                        alt={secondaryProduct.name}
-                        className="rounded-lg"
-                        height={100}
-                        width={100}
-                        layout="responsive"
-                        objectFit="cover"
-                      />
+              .map((relatedProduct, index) => {
+                const relatedParentCategory = categories.find(
+                  (cat) => cat.id === relatedProduct.category_id.parent_id
+                );
+                return (
+                  <Link
+                    href={`/category/${relatedParentCategory?.name.toLowerCase()}/${relatedProduct.category_id.name.toLowerCase()}/${relatedProduct.name.toLowerCase()}`}
+                    key={index}
+                    className="block border-b border-gray-300 pb-3 mb-3 last:border-0 last:pb-0 hover:bg-gray-200 transition-colors rounded-lg p-2"
+                  >
+                    <div className="flex items-center">
+                      <div className="w-20 h-20 flex-shrink-0">
+                        <Image
+                          src={`https://admin.parazone.tn/assets/${relatedProduct.url}`}
+                          alt={relatedProduct.name}
+                          className="rounded-lg"
+                          height={100}
+                          width={100}
+                          layout="responsive"
+                          objectFit="cover"
+                        />
+                      </div>
+                      <div className="ml-4 flex-1">
+                        <h3 className="text-xs font-semibold text-gray-900">
+                          {relatedProduct.name}
+                        </h3>
+                        <p className="text-xs text-gray-700">
+                          Brand: {relatedProduct.brand}
+                        </p>
+                        <p className="text-xs text-gray-700">
+                          Category: {relatedProduct.category_id.name}
+                        </p>
+                      </div>
                     </div>
-                    <div className="ml-4 flex-1">
-                      <h3 className="text-xs font-semibold text-gray-900">
-                        {secondaryProduct.name}
-                      </h3>
-                      <p className=" text-xs text-gray-700">
-                        Brand: {secondaryProduct.brand}
-                      </p>
-                      <p className="text-xs text-gray-700">
-                        Category: {secondaryProduct.category_id.name}
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                );
+              })}
           </div>
         </div>
 

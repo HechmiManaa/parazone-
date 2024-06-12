@@ -17,7 +17,9 @@ export default function ProductsPageByCategory({
   }, [category, fetchProducts]);
 
   const categoryProducts = products.filter(
-    (product) => product.category_id.name === category
+    (product) =>
+      product.category_id.name.toLowerCase() ===
+      decodeURIComponent(category).toLowerCase()
   );
   return (
     <div className="container mx-auto py-12">
