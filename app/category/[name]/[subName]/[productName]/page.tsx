@@ -162,10 +162,9 @@ export default function ProductPage({
                       .toLowerCase()
                       .replace(/ /g, "-")}/${relatedProduct.category_id.name
                       .toLowerCase()
-                      .replace(
-                        / /g,
-                        "-"
-                      )}/${relatedProduct.name.toLowerCase()}`}
+                      .replace(/ /g, "-")}/${relatedProduct.name
+                      .toLowerCase()
+                      .replace(/ /g, "--")}`}
                     key={index}
                     className="block border-b border-gray-300 pb-3 mb-3 last:border-0 last:pb-0 hover:bg-gray-200 transition-colors rounded-lg p-2"
                   >

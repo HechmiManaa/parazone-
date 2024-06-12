@@ -9,7 +9,7 @@ export default function ProductsPageByCategory({
 }: {
   params: { subName: string };
 }) {
-  const category = params.subName;
+  const category = params.subName.toLowerCase().replace(/-/g, " ");
   const { products, fetchProducts } = useProductStore();
 
   useEffect(() => {
@@ -18,8 +18,8 @@ export default function ProductsPageByCategory({
 
   const categoryProducts = products.filter(
     (product) =>
-      product.category_id.name.toLowerCase() ===
-      decodeURIComponent(category).toLowerCase()
+      product.category_id.name.toLowerCase().replace(/-/g, " ") ===
+      decodeURIComponent(category)
   );
   return (
     <div className="container mx-auto py-12">

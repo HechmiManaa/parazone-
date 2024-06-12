@@ -35,7 +35,11 @@ export function ProductCard({
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden w-80  cursor-pointer h-full">
       <Link
-        href={`/category/${parentCategory?.name.toLowerCase()}/${category_id.name.toLowerCase()}/${modifiedName}`}
+        href={`/category/${parentCategory?.name
+          .toLowerCase()
+          .replace(/ /g, "-")}/${category_id.name
+          .toLowerCase()
+          .replace(/ /g, "-")}/${modifiedName}`}
       >
         <div className="relative w-full h-48 ">
           <Image

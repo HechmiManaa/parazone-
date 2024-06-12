@@ -61,7 +61,11 @@ export default function CategoriesPage() {
                       <Link
                         onClick={() => setShowSubCategories(null)}
                         key={subCategory.id}
-                        href={`/category/${parentCategory.name.toLowerCase()}/${subCategory.name.toLowerCase()}`}
+                        href={`/category/${parentCategory.name
+                          .toLowerCase()
+                          .replace(/ /g, "-")}/${subCategory.name
+                          .toLowerCase()
+                          .replace(/ /g, "-")}`}
                       >
                         <div>
                           <SubCategoriesBox
