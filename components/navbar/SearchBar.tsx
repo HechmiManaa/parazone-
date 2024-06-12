@@ -35,7 +35,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div>
+    <div className="z-20">
       <div className="flex items-center border border-gray-300 rounded-lg px-4 py-2 w-full shadow-sm focus-within:border-blue-400 focus-within:ring focus-within:ring-blue-300 focus-within:ring-opacity-50 transition duration-300 ease-in-out">
         <IoSearchOutline size={20} className="text-gray-400 mr-4" />
         <input

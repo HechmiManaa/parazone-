@@ -19,7 +19,7 @@ export default function Page({
   }, [categoryName, fetchCategories]);
 
   return (
-    <div className="flex flex-col gap-4 p-4">
+    <div className="flex flex-col gap-4 p-4 min-h-screen">
       {categories.map((parentCategory) => (
         <div key={parentCategory.id}>
           <div className="flex flex-wrap gap-2">
