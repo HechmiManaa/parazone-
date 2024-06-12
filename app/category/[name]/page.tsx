@@ -33,7 +33,11 @@ export default function Page({
               .map((subCategory) => (
                 <Link
                   key={subCategory.id}
-                  href={`/category/${parentCategory.name.toLowerCase()}/${subCategory.name.toLowerCase()}`}
+                  href={`/category/${parentCategory.name
+                    .toLowerCase()
+                    .replace(/ /g, "-")}/${subCategory.name
+                    .toLowerCase()
+                    .replace(/ /g, "-")}`}
                 >
                   <div>
                     <SubCategoryBox

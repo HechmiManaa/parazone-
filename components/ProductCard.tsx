@@ -30,10 +30,12 @@ export function ProductCard({
     (cat) => cat.id === category_id.parent_id
   );
 
+  const modifiedName = name.toLowerCase().replace(/ /g, "--");
+
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden w-80  cursor-pointer h-full">
       <Link
-        href={`/category/${parentCategory?.name.toLowerCase()}/${category_id.name.toLowerCase()}/${name.toLowerCase()}`}
+        href={`/category/${parentCategory?.name.toLowerCase()}/${category_id.name.toLowerCase()}/${modifiedName}`}
       >
         <div className="relative w-full h-48 ">
           <Image

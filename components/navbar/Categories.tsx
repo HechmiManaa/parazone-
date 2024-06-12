@@ -24,7 +24,9 @@ export default function CategoriesPage() {
           <div className="font-bold text-xl mb-2">
             <Link
               key={parentCategory.id}
-              href={`/category/${parentCategory.name.toLowerCase()}`}
+              href={`/category/${parentCategory.name
+                .toLowerCase()
+                .replace(/ /g, "-")}`}
             >
               <CategoryBox
                 icon={parentCategory.icon}

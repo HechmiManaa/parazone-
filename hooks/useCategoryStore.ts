@@ -3,6 +3,7 @@ import { create } from "zustand";
 import axios from "axios";
 
 export interface Category {
+  modifiedName: any;
   subName: string;
   id: number;
   name: string;

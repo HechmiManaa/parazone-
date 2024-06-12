@@ -12,6 +12,9 @@ export default function ProductPage({
   params: { productName: string };
 }) {
   const productName = params.productName;
+
+  const modifiedName = productName.toLowerCase().replace(/--/g, " ");
+
   const [product, setProduct] = useState<Product | null>();
   const [filteredPrices, setFilteredPrices] = useState<Prices[]>([]);
 
@@ -20,12 +23,13 @@ export default function ProductPage({
   const { products, fetchProducts } = useProductStore();
   const { Prices, fetchPrices } = usePricesStore();
   const { categories, fetchCategories } = useCategoryStore();
+
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
 
   {
-    /*fetching the product by the id in the params*/
+    /*fetching the product by the name in the params*/
   }
   useEffect(() => {
     const fetchProduct = async () => {
@@ -34,19 +38,17 @@ export default function ProductPage({
           // Fetch products only if not already available
           await fetchProducts();
         }
-
         const fetchedProduct =
           products.find(
             (p) =>
               p.name.toLowerCase() ===
-              decodeURIComponent(productName).toLowerCase()
+              decodeURIComponent(modifiedName).toLowerCase()
           ) || null;
         setProduct(fetchedProduct);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
-
     fetchProduct();
   }, [productName, fetchProducts, products, products.length]);
 
@@ -156,7 +158,14 @@ export default function ProductPage({
                 );
                 return (
                   <Link
-                    href={`/category/${relatedParentCategory?.name.toLowerCase()}/${relatedProduct.category_id.name.toLowerCase()}/${relatedProduct.name.toLowerCase()}`}
+                    href={`/category/${relatedParentCategory?.name
+                      .toLowerCase()
+                      .replace(/ /g, "-")}/${relatedProduct.category_id.name
+                      .toLowerCase()
+                      .replace(
+                        / /g,
+                        "-"
+                      )}/${relatedProduct.name.toLowerCase()}`}
                     key={index}
                     className="block border-b border-gray-300 pb-3 mb-3 last:border-0 last:pb-0 hover:bg-gray-200 transition-colors rounded-lg p-2"
                   >
