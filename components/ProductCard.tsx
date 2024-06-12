@@ -1,6 +1,7 @@
-import { Category } from "@/hooks/useCategoryStore";
+import { Category, useCategoryStore } from "@/hooks/useCategoryStore";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 
 interface ProductCardProps {
   id: number;
@@ -19,9 +20,21 @@ export function ProductCard({
   brand,
   url,
 }: ProductCardProps) {
+  const { categories, fetchCategories } = useCategoryStore();
+
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
+
+  const parentCategory = categories.find(
+    (cat) => cat.id === category_id.parent_id
+  );
+
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden w-80  cursor-pointer h-full">
-      <Link href={`/product/${id}`}>
+      <Link
+        href={`/category/${parentCategory?.name.toLowerCase()}/${category_id.name.toLowerCase()}/${name.toLowerCase()}`}
+      >
         <div className="relative w-full h-48 ">
           <Image
             alt={name}
