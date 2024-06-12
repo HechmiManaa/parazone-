@@ -78,7 +78,7 @@ export default function ProductPage({
   return (
     <div>
       {/* Main Product */}
-      <div className=" max-w-auto py-8 sm:px-6 lg:px-20 flex flex-col lg:flex-row lg:items-start lg:gap-x-8 mx-auto px-4 md:px-10 items-center justify-between">
+      <div className="max-w-auto py-8 sm:px-6 lg:px-20 flex flex-col lg:flex-row lg:items-start lg:gap-x-8 mx-auto px-4 md:px-10 items-center justify-between">
         {/* Product Image */}
         <div className="w-full lg:h-96 lg:w-96">
           <div className="flex justify-center lg:block border-2 rounded-lg border-gray-200 p-1">
@@ -239,19 +239,22 @@ export default function ProductPage({
                         >
                           Acheter
                         </a>
+                        g
                       </div>
                     </li>
                   ))}
               </ul>
             ) : (
-              <div className="flex flex-col gap-4 justify-center items-center w-full">
-                <div className="flex flex-row gap-2 w-full">
-                  <div className="animate-pulse bg-gray-300 w-full h-12 rounded-xl"></div>
-                  <div className="flex flex-col gap-2">
-                    <div className="animate-pulse bg-gray-300 w-28 h-5 rounded-full"></div>
-                    <div className="animate-pulse bg-gray-300 w-36 h-5 rounded-full"></div>
+              <div className="flex flex-col gap-6 justify-center items-center w-full">
+                {[...Array(LoadNum)].map((_, index) => (
+                  <div className="flex flex-row gap-2 w-full" key={index}>
+                    <div className="animate-pulse bg-gray-300 w-full h-12 rounded-xl"></div>
+                    <div className="flex flex-col gap-2">
+                      <div className="animate-pulse bg-gray-300 w-28 h-5 rounded-full"></div>
+                      <div className="animate-pulse bg-gray-300 w-36 h-5 rounded-full"></div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
             )}
           </div>
