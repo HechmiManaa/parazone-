@@ -74,7 +74,7 @@ export default function ProductPage({
   };
 
   const MAX_DESCRIPTION_LENGTH = 887; // Adjust as needed
-
+  const LoadNum = 4;
   return (
     <div>
       {/* Main Product */}
@@ -244,7 +244,15 @@ export default function ProductPage({
                   ))}
               </ul>
             ) : (
-              <p>Loading...</p>
+              <div className="flex flex-col gap-4 justify-center items-center w-full">
+                <div className="flex flex-row gap-2 w-full">
+                  <div className="animate-pulse bg-gray-300 w-full h-12 rounded-xl"></div>
+                  <div className="flex flex-col gap-2">
+                    <div className="animate-pulse bg-gray-300 w-28 h-5 rounded-full"></div>
+                    <div className="animate-pulse bg-gray-300 w-36 h-5 rounded-full"></div>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
         </div>

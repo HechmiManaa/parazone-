@@ -22,7 +22,7 @@ export default function CategoriesPage() {
   );
 
   return (
-    <div className="flex justify-between gap-2 items-center py-2 overflow-auto mx-4 md:mx-20">
+    <div className="flex justify-between gap-2 items-center py-2 overflow-auto mx-1 md:mx-20">
       {parentCategories.map((parentCategory) => (
         <div
           key={parentCategory.id}
