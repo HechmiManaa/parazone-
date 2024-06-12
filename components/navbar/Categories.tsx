@@ -55,17 +55,4 @@ export default function CategoriesPage() {
       ))}
     </div>
   );
-
-  <div className="flex justify-between gap-2 items-center py-2 overflow-auto mx-4 md:mx-20">
-    {categories.map((category) => (
-      <Link
-        key={category.id}
-        href={`/category/${category.name.toLowerCase()}/${category.name}`}
-      >
-        <div>
-          <CategoryBox icon={category.icon} name={category.name} />
-        </div>
-      </Link>
-    ))}
-  </div>;
 }
