@@ -58,6 +58,7 @@ export default function HomePage() {
                     name={product.name}
                     description={product.description}
                     brand={product.brand}
+                    slug={product.slug}
                   />
                 </div>
               ))}

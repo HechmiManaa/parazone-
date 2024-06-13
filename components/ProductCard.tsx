@@ -10,6 +10,7 @@ interface ProductCardProps {
   category_id: Category;
   brand?: string | null;
   url?: string | null;
+  slug: string;
 }
 
 export function ProductCard({
@@ -19,6 +20,7 @@ export function ProductCard({
   category_id,
   brand,
   url,
+  slug,
 }: ProductCardProps) {
   const { categories, fetchCategories } = useCategoryStore();
 
@@ -30,16 +32,10 @@ export function ProductCard({
     (cat) => cat.id === category_id.parent_id
   );
 
-  const modifiedName = name.toLowerCase().replace(/ /g, "--");
-
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden w-80  cursor-pointer h-full">
       <Link
-        href={`/category/${parentCategory?.name
-          .toLowerCase()
-          .replace(/ /g, "-")}/${category_id.name
-          .toLowerCase()
-          .replace(/ /g, "-")}/${modifiedName}`}
+        href={`/category/${parentCategory?.slug}/${category_id.slug}/${slug}`}
       >
         <div className="relative w-full h-48 ">
           <Image

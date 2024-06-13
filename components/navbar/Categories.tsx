@@ -33,9 +33,7 @@ export default function CategoriesPage() {
           <div className="font-bold text-xl mb-2">
             <Link
               key={parentCategory.id}
-              href={`/category/${parentCategory.name
-                .toLowerCase()
-                .replace(/ /g, "-")}`}
+              href={`/category/${parentCategory.slug}`}
             >
               <CategoryBox
                 icon={parentCategory.icon}
@@ -61,11 +59,7 @@ export default function CategoriesPage() {
                       <Link
                         onClick={() => setShowSubCategories(null)}
                         key={subCategory.id}
-                        href={`/category/${parentCategory.name
-                          .toLowerCase()
-                          .replace(/ /g, "-")}/${subCategory.name
-                          .toLowerCase()
-                          .replace(/ /g, "-")}`}
+                        href={`/category/${parentCategory.slug}/${subCategory.slug}`}
                       >
                         <div>
                           <SubCategoriesBox

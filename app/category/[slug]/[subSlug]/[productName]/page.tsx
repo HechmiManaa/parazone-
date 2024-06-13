@@ -13,8 +13,6 @@ export default function ProductPage({
 }) {
   const productName = params.productName;
 
-  const modifiedName = productName.toLowerCase().replace(/--/g, " ");
-
   const [product, setProduct] = useState<Product | null>();
   const [filteredPrices, setFilteredPrices] = useState<Prices[]>([]);
 
@@ -41,8 +39,8 @@ export default function ProductPage({
         const fetchedProduct =
           products.find(
             (p) =>
-              p.name.toLowerCase() ===
-              decodeURIComponent(modifiedName).toLowerCase()
+              p.slug.toLowerCase() ===
+              decodeURIComponent(productName).toLowerCase()
           ) || null;
         setProduct(fetchedProduct);
       } catch (error) {
@@ -150,7 +148,7 @@ export default function ProductPage({
               Related Products
             </h2>
             {products
-              .filter((p) => p.name !== productName)
+              .filter((p) => p.slug !== productName)
               .slice(0, 4)
               .map((relatedProduct, index) => {
                 const relatedParentCategory = categories.find(
@@ -158,13 +156,7 @@ export default function ProductPage({
                 );
                 return (
                   <Link
-                    href={`/category/${relatedParentCategory?.name
-                      .toLowerCase()
-                      .replace(/ /g, "-")}/${relatedProduct.category_id.name
-                      .toLowerCase()
-                      .replace(/ /g, "-")}/${relatedProduct.name
-                      .toLowerCase()
-                      .replace(/ /g, "--")}`}
+                    href={`/category/${relatedParentCategory?.slug}/${relatedProduct.category_id.slug}/${relatedProduct.slug}`}
                     key={index}
                     className="block border-b border-gray-300 pb-3 mb-3 last:border-0 last:pb-0 hover:bg-gray-200 transition-colors rounded-lg p-2"
                   >

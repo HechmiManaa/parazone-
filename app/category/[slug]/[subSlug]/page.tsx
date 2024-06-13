@@ -3,28 +3,39 @@
 import { useEffect } from "react";
 import { useProductStore } from "@/hooks/useProductStore"; // Adjust the import path
 import { ProductCard } from "@/components/ProductCard";
+import { useCategoryStore } from "@/hooks/useCategoryStore";
 
 export default function ProductsPageByCategory({
   params,
 }: {
-  params: { subName: string };
+  params: { subSlug: string };
 }) {
-  const category = params.subName.toLowerCase().replace(/-/g, " ");
+  const categorySlug = params.subSlug;
   const { products, fetchProducts } = useProductStore();
+  const { categories, fetchCategories } = useCategoryStore();
 
   useEffect(() => {
     fetchProducts();
-  }, [category, fetchProducts]);
+  }, [categorySlug, fetchProducts]);
 
   const categoryProducts = products.filter(
-    (product) =>
-      product.category_id.name.toLowerCase().replace(/-/g, " ") ===
-      decodeURIComponent(category)
+    (product) => product.category_id.slug === categorySlug
   );
+
+  const Category = categories.find(
+    (category) => category.slug === categorySlug
+  );
+
+  useEffect(() => {
+    if (Category) {
+      fetchCategories();
+    }
+  }, [categorySlug, fetchCategories, Category]);
+
   return (
     <div className="container mx-auto py-12">
       <h1 className="text-2xl ml-4 font-bold mb-8 capitalize">
-        {decodeURIComponent(category)}
+        {Category?.name}
       </h1>
       <div className="flex flex-col lg:flex-row flex-wrap justify-start items-center gap-4">
         {categoryProducts.length > 0 ? (
@@ -37,13 +48,13 @@ export default function ProductsPageByCategory({
                 name={product.name}
                 description={product.description}
                 brand={product.brand}
+                slug={product.slug}
               />
             </div>
           ))
         ) : (
           <div className="text-cente text-lg py-44">
-            Aucun produit disponible pour la catégorie{" "}
-            {decodeURIComponent(category)}
+            Aucun produit disponible pour la catégorie {Category?.name}
           </div>
         )}
       </div>

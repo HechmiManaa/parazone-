@@ -8,19 +8,29 @@ export default function Page({
   params,
 }: {
   params: {
-    name: any;
+    slug: any;
   };
 }) {
   const { categories, fetchCategories } = useCategoryStore();
-  const categoryName = params.name;
+  const categorySlug = params.slug;
 
   useEffect(() => {
     fetchCategories();
-  }, [categoryName, fetchCategories]);
+  }, [categorySlug, fetchCategories]);
+
+  const parentCategory = categories.find(
+    (category) => category.slug === categorySlug
+  );
+
+  useEffect(() => {
+    if (parentCategory) {
+      fetchCategories();
+    }
+  }, [categorySlug, fetchCategories, parentCategory]);
 
   return (
     <div className="flex flex-col gap-1 p-4 min-h-screen">
-      <h1 className="font-semibold p-2 ">{categoryName}</h1>
+      <h1 className="font-semibold p-2 ">{parentCategory?.name}</h1>
       {categories.map((parentCategory) => (
         <div key={parentCategory.id}>
           <div className="flex flex-wrap gap-2">
@@ -28,17 +38,12 @@ export default function Page({
               .filter(
                 (subCategory) =>
                   subCategory.parent_id === parentCategory.id &&
-                  parentCategory.name.toLowerCase() ===
-                    categoryName.toLowerCase()
+                  parentCategory.slug === categorySlug
               )
               .map((subCategory) => (
                 <Link
                   key={subCategory.id}
-                  href={`/category/${parentCategory.name
-                    .toLowerCase()
-                    .replace(/ /g, "-")}/${subCategory.name
-                    .toLowerCase()
-                    .replace(/ /g, "-")}`}
+                  href={`/category/${parentCategory.slug}/${subCategory.slug}`}
                 >
                   <div>
                     <SubCategoryBox

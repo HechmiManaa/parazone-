@@ -10,6 +10,7 @@ export interface Category {
   parent_id: number | null;
   description: string | null;
   icon: string;
+  slug: string;
 }
 
 interface CategoryStore {
@@ -21,7 +22,7 @@ export const useCategoryStore = create<CategoryStore>((set) => ({
   categories: [],
   fetchCategories: async () => {
     try {
-      const response = await axios.get("https://141.98.152.246:666/categories");
+      const response = await axios.get("http://141.98.152.246:3000/categories");
       set({ categories: response.data.data });
     } catch (error) {
       console.error("Error fetching categories:", error);
