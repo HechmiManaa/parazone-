@@ -11,10 +11,10 @@ import { useEffect } from "react";
 
 export default function HomePage() {
   const { products, fetchProducts } = useProductStore();
-
   useEffect(() => {
     fetchProducts();
-  }, [products, fetchProducts]);
+  }, [fetchProducts]);
+
   return (
     <>
       <section className="px-6 md:px-20 pb-24 pt-10 background-i">
@@ -58,6 +58,7 @@ export default function HomePage() {
                     name={product.name}
                     description={product.description}
                     brand={product.brand}
+                    slug={product.slug}
                   />
                 </div>
               ))}

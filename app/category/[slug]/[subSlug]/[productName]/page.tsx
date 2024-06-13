@@ -12,6 +12,7 @@ export default function ProductPage({
   params: { productName: string };
 }) {
   const productName = params.productName;
+
   const [product, setProduct] = useState<Product | null>();
   const [filteredPrices, setFilteredPrices] = useState<Prices[]>([]);
 
@@ -20,12 +21,13 @@ export default function ProductPage({
   const { products, fetchProducts } = useProductStore();
   const { Prices, fetchPrices } = usePricesStore();
   const { categories, fetchCategories } = useCategoryStore();
+
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
 
   {
-    /*fetching the product by the id in the params*/
+    /*fetching the product by the name in the params*/
   }
   useEffect(() => {
     const fetchProduct = async () => {
@@ -34,11 +36,10 @@ export default function ProductPage({
           // Fetch products only if not already available
           await fetchProducts();
         }
-
         const fetchedProduct =
           products.find(
             (p) =>
-              p.name.toLowerCase() ===
+              p.slug.toLowerCase() ===
               decodeURIComponent(productName).toLowerCase()
           ) || null;
         setProduct(fetchedProduct);
@@ -46,7 +47,6 @@ export default function ProductPage({
         console.error("Error fetching products:", error);
       }
     };
-
     fetchProduct();
   }, [productName, fetchProducts, products, products.length]);
 
@@ -148,7 +148,7 @@ export default function ProductPage({
               Related Products
             </h2>
             {products
-              .filter((p) => p.name !== productName)
+              .filter((p) => p.slug !== productName)
               .slice(0, 4)
               .map((relatedProduct, index) => {
                 const relatedParentCategory = categories.find(
@@ -156,7 +156,7 @@ export default function ProductPage({
                 );
                 return (
                   <Link
-                    href={`/category/${relatedParentCategory?.name.toLowerCase()}/${relatedProduct.category_id.name.toLowerCase()}/${relatedProduct.name.toLowerCase()}`}
+                    href={`/category/${relatedParentCategory?.slug}/${relatedProduct.category_id.slug}/${relatedProduct.slug}`}
                     key={index}
                     className="block border-b border-gray-300 pb-3 mb-3 last:border-0 last:pb-0 hover:bg-gray-200 transition-colors rounded-lg p-2"
                   >
