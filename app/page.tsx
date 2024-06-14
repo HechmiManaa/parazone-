@@ -8,20 +8,13 @@ import { MdOutlineShield } from "react-icons/md";
 import { HiArrowSmallRight } from "react-icons/hi2";
 import { useProductStore } from "@/hooks/useProductStore";
 import { useEffect } from "react";
-import { useTest } from "@/hooks/useTest";
 
 export default function HomePage() {
   const { products, fetchProducts } = useProductStore();
-  const { categories, fetchCategories } = useTest();
+
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
-
-  useEffect(() => {
-    fetchCategories();
-  }, [fetchCategories]);
-
-  console.log(categories);
 
   return (
     <>
@@ -32,7 +25,7 @@ export default function HomePage() {
               Your Trusted Parapharmacie Partner{" "}
               <HiArrowSmallRight className="mt-1" />
             </p>
-            <h2>{categories[0]?.name}</h2>
+
             <h1 className="head-text">
               Discover Health & Wellness with Parazone
             </h1>

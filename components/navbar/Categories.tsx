@@ -17,13 +17,15 @@ export default function CategoriesPage() {
   }, [fetchCategories]);
 
   // Filter out parent categories
-  const parentCategories = categories.filter(
+  {
+    /*const parentCategories = categories.filter(
     (category) => category.parent_id === null
-  );
+  );*/
+  }
 
   return (
     <div className="flex justify-between gap-2 items-center py-2 overflow-auto mx-1 md:mx-20">
-      {parentCategories.map((parentCategory) => (
+      {categories.map((parentCategory) => (
         <div
           key={parentCategory.id}
           className=""
@@ -36,7 +38,7 @@ export default function CategoriesPage() {
               href={`/category/${parentCategory.slug}`}
             >
               <CategoryBox
-                icon={parentCategory.icon}
+                icon={parentCategory.img}
                 name={parentCategory.name}
               />
             </Link>
@@ -63,7 +65,7 @@ export default function CategoriesPage() {
                       >
                         <div>
                           <SubCategoriesBox
-                            icon={subCategory.icon}
+                            icon={subCategory.img}
                             name={subCategory.name}
                           />
                         </div>
