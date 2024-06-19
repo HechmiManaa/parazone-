@@ -5,7 +5,7 @@ const nextConfig = {
       "admin.parazone.tn",
       "www.parafendri.tn",
       "www.maparatunisie.tn",
-      "",
+      "lecoinpara.tn",
     ], // Allows Next.js Image Optimization to load images from this domain
   },
   async headers() {

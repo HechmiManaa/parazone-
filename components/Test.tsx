@@ -9,9 +9,11 @@ import { useCategoryStore } from "@/hooks/useCategory";
 export default function ProductPage({
   params,
 }: {
-  params: { productName: string };
+  params: {
+    productSlug: string;
+  };
 }) {
-  const productName = params.productName;
+  const productSlug = params.productSlug;
 
   const [product, setProduct] = useState<Product | null>();
   const [filteredPrices, setFilteredPrices] = useState<Price[]>([]);
@@ -27,7 +29,7 @@ export default function ProductPage({
   }, [fetchCategories]);
 
   {
-    /*fetching the product by the name in the params*/
+    /*fetching the product by the Slug in the params*/
   }
   useEffect(() => {
     const fetchProduct = async () => {
@@ -40,7 +42,7 @@ export default function ProductPage({
           products.find(
             (p) =>
               p.slug.toLowerCase() ===
-              decodeURIComponent(productName).toLowerCase()
+              decodeURIComponent(productSlug).toLowerCase()
           ) || null;
         setProduct(fetchedProduct);
       } catch (error) {
@@ -48,7 +50,7 @@ export default function ProductPage({
       }
     };
     fetchProduct();
-  }, [productName, fetchProducts, products, products.length]);
+  }, [productSlug, fetchProducts, products, products.length]);
 
   {
     /*fetching all the prices*/
@@ -63,7 +65,7 @@ export default function ProductPage({
   useEffect(() => {
     const filtered = Prices.filter((price) => price.product_id === product?.id);
     setFilteredPrices(filtered);
-  }, [Prices, productName]);
+  }, [Prices, productSlug]);
 
   if (!product) {
     return <div>Loading...</div>;
@@ -149,7 +151,7 @@ export default function ProductPage({
               Related Products
             </h2>
             {products
-              .filter((p) => p.slug !== productName)
+              .filter((p) => p.slug !== productSlug)
               .slice(0, 4)
               .map((relatedProduct, index) => {
                 const relatedParentCategory = categories.find(

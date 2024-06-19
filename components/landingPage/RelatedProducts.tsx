@@ -9,11 +9,12 @@ export const RelatedProducts = () => {
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
+
   return (
     <section className="trending-section py-8">
       <div className="mx-auto">
         <h2 className="text-center text-2xl mb-2 font-extrabold text-black py-4">
-          Latest drops
+          Related Products
         </h2>
         <div className="flex flex-col lg:flex-row justify-center items-center gap-2 w-full">
           {products
@@ -23,12 +24,12 @@ export const RelatedProducts = () => {
               <div key={product.id}>
                 <ProductCard
                   id={product.id}
-                  category_id={product.category_id}
-                  url={product.product_img}
-                  name={product.title}
-                  description={product.short_description}
-                  brand={product.brand}
+                  product_img={product.product_img}
+                  title={product.title}
+                  short_description={product.short_description}
+                  brand_id={product.brand_id}
                   slug={product.slug}
+                  long_description={""}
                 />
               </div>
             ))}
