@@ -26,58 +26,96 @@ const Items: React.FC<itemProps> = ({ productId, productSlug }) => {
   const LoadNum = 4;
 
   return (
-    <div className=" w-full m-2  mx-auto rounded-xl bg-gray-100 order-1 lg:order-2">
-      <h1 className=" text-start mt-4 ml-4  text-base lg:text-xl font-bold ">
-        Prices Comparison
+    <div className="w-full m-2 mx-auto rounded-xl bg-gray-100 order-1 lg:order-2">
+      <h1 className="text-start mt-4 ml-4 text-base lg:text-xl font-bold">
+        Comparaison des Prix
       </h1>
 
-      <div className="w-full p-4 ">
+      <div className="w-full p-4">
         {filteredPrices.length > 0 ? (
-          <ul className="flex flex-col gap-4 w-full p-2">
-            {filteredPrices
-              .sort((a, b) => a.value - b.value)
-              .map((price) => (
-                <li
-                  key={price.id}
-                  className="flex flex-col lg:flex-row justify-between items-center border border-gray-200 rounded-xl p-4 hover:bg-gray-200  transition cursor-pointer"
-                >
-                  <div className="w-full lg:w-1/3">
-                    <p className="mb-2 text-xs font-semibold lg:text-sm w-full">
-                      {price.title}
-                    </p>
-                  </div>
-                  <div className="w-full flex items-center justify-around">
-                    {price.store_id?.logo && (
-                      <Link
-                        href={price.store_id?.url}
-                        passHref
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Image
-                          src={`${price.store_id.logo}`}
-                          alt="Store Logo"
-                          width={100}
-                          height={100}
-                          className=" w-16 lg:w-24 rounded-full"
-                        />
-                      </Link>
-                    )}
-                    <p className="mt-4 font-bold text-xs lg:text-base mb-2">
-                      {price.value} dt
-                    </p>
-                    <a
-                      href={price.product_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white blue-background py-1 lg:py-2 px-1 lg:px-4 rounded inline-block text-sm lg:text-base"
-                    >
-                      Acheter
-                    </a>
-                  </div>
-                </li>
-              ))}
-          </ul>
+          <div className="overflow-x-auto">
+            <table className="table table-zebra">
+              <thead>
+                <tr>
+                  <th>Offre Title</th>
+                  <th>Magasin</th>
+                  <th>Price</th>
+                  <th>livraison info</th>
+                  <th>Disponibilité</th>
+                  <th>Offre</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredPrices
+                  .sort((a, b) => a.value - b.value)
+                  .map((price) => (
+                    <tr className="bg-white" key={price.id}>
+                      <td>
+                        <p className=" text-[9px] w-20 font-semibold lg:text-sm lg:w-full">
+                          {price.title}
+                        </p>
+                      </td>
+                      <td>
+                        {price.store_id?.logo && (
+                          <Link
+                            href={price.store_id?.url}
+                            passHref
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <Image
+                              src={`${price.store_id.logo}`}
+                              alt="Store Logo"
+                              width={100}
+                              height={100}
+                              className="w-16 lg:w-24 rounded-full"
+                            />
+                          </Link>
+                        )}
+                      </td>
+                      <td>
+                        <div className=" flex gap-1 mt-4 font-bold text-xs lg:text-base mb-2 blue">
+                          <div>{price.value} </div>
+                          <div>dt</div>
+                        </div>
+                      </td>
+                      <td>
+                        <div className="flex flex-col justify-center items-center">
+                          <p className="text-xs">{price.delivery_time}</p>
+                          <p className="text-xs">{price.delivery_price} dt</p>
+                        </div>
+                      </td>
+                      <td>
+                        <p
+                          className={`${
+                            price.availability === "Disponible"
+                              ? "text-green-500"
+                              : "text-red-500"
+                          } font-semibold text-xs`}
+                        >
+                          {price.availability}
+                        </p>
+                      </td>
+                      <td>
+                        <p className="text-xs w-20 text-center">
+                          {price.offer}
+                        </p>
+                      </td>
+                      <td>
+                        <a
+                          href={price.product_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-white blue-background py-1 lg:py-2 px-1 lg:px-4 rounded inline-block text-sm lg:text-base"
+                        >
+                          Acheter
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
         ) : (
           <div className="flex flex-col gap-6 justify-center items-center w-full">
             {[...Array(LoadNum)].map((_, index) => (

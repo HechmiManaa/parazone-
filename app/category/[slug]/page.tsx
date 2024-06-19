@@ -29,9 +29,32 @@ export default function Page({
 
   return (
     <div className="flex flex-col gap-1 p-4 min-h-screen">
-      <h1 className="font-semibold p-2 ">{parentCategory?.name}</h1>
+      <div className=" flex flex-col lg:flex-row items-center justify-around lg:border-2 m-2 lg:m-10 lg:px-20">
+        <div className="w-full flex flex-col gap-2">
+          <h1 className="font-semibold p-2 text-xl ">{parentCategory?.name}</h1>
+
+          <div
+            className="mx-4 text-sm"
+            dangerouslySetInnerHTML={{
+              __html: parentCategory?.description || "",
+            }}
+          ></div>
+        </div>
+        <div>
+          {parentCategory?.img && (
+            <div>
+              <img
+                src={parentCategory.img}
+                alt={parentCategory.name}
+                className="w-[80%] h-full object-cover m-10"
+              />
+            </div>
+          )}
+        </div>
+      </div>
+
       {parentCategory && (
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 mx-2 lg:mx-20">
           {subCategories.map((subCategory) => (
             <Link
               key={subCategory.id}

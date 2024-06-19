@@ -116,14 +116,48 @@ export default function ProductPage({
           </h3>
 
           <div className="mt-2">
-            <p className="text-sm text-gray-700">
-              Brand: {product.brand_id?.title}
-            </p>
-          </div>
-          <div className="py-2">
-            <p className="text-sm text-gray-700">
-              Category: {subCategory?.name}
-            </p>
+            <div className="flex flex-col  ">
+              <div className=" flex flex-col justify-center items-start text-sm text-gray-700">
+                <div>
+                  Marque:{" "}
+                  <span className="blue font-semibold">
+                    {product.brand_id?.title}
+                  </span>
+                </div>
+
+                <div>
+                  {product.brand_id?.logo && (
+                    <div className="w-28 border-2 m-2">
+                      <Image
+                        src={`${product.brand_id?.logo}`}
+                        alt={product.brand_id?.title}
+                        className="rounded-lg h-32 w-32"
+                        layout="responsive"
+                        objectFit="cover"
+                        width={400}
+                        height={400}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="py-2">
+                <div className="text-sm text-gray-700">
+                  Référence:{" "}
+                  <span className="blue font-semibold">{product?.id}</span>
+                </div>
+              </div>
+
+              <div className="py-2">
+                <div className="text-sm text-gray-700">
+                  Category:{" "}
+                  <span className="blue font-semibold">
+                    {subCategory?.name}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="mt-6">
@@ -173,6 +207,44 @@ export default function ProductPage({
 
         {/* Items */}
         <Items productId={String(product.id)} productSlug={productSlug} />
+      </div>
+      {/* ---------------*/}
+
+      {/* Long Description */}
+
+      <div className="m-10">
+        <h3 className="text-xl lg:text-2xl m-4 font-semibold tracking-tight text-gray-900">
+          Description
+        </h3>
+        <div className="text-gray-700 text-xs lg:text-base">
+          {product.long_description.length > MAX_DESCRIPTION_LENGTH ? (
+            <div>
+              <div
+                className="text-xs lg:text-base"
+                dangerouslySetInnerHTML={{
+                  __html: showMore
+                    ? product.long_description
+                    : `${product.long_description.substring(
+                        0,
+                        MAX_DESCRIPTION_LENGTH
+                      )}...`,
+                }}
+              ></div>
+              <button
+                onClick={handleToggleShowMore}
+                className="mt-4 blue font-semibold hover:underline"
+              >
+                {showMore ? "Afficher moins" : "Afficher plus..."}
+              </button>
+            </div>
+          ) : (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: product.long_description,
+              }}
+            ></div>
+          )}
+        </div>
       </div>
       {/* ---------------*/}
     </div>

@@ -50,7 +50,7 @@ const ProductRelatedProducts: React.FC<ProductRelatedProductsProps> = ({
     <div className="p-2  w-full lg:w-1/4 order-2 lg:order-1">
       <div className="bg-gray-100 rounded-lg shadow-md p-4">
         <h2 className="text-base lg:text-xl font-bold text-gray-900 mb-4">
-          Related Products
+          Produits Connexes
         </h2>
         {relatedProduct
           .filter((p) => String(p.id) !== String(productId))
