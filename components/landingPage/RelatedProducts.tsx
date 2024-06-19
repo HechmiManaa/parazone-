@@ -9,11 +9,12 @@ export const RelatedProducts = () => {
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
+
   return (
     <section className="trending-section py-8">
       <div className="mx-auto">
         <h2 className="text-center text-2xl mb-2 font-extrabold text-black py-4">
-          Latest drops
+          Related Products
         </h2>
         <div className="flex flex-col lg:flex-row justify-center items-center gap-2 w-full">
           {products

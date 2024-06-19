@@ -2,6 +2,14 @@
 import { create } from "zustand";
 import axios from "axios";
 
+interface store {
+  id: number;
+  title: string;
+  slug_title: string;
+  url: string;
+  logo: string;
+}
+
 export interface Price {
   id: number;
   title: string;
@@ -16,7 +24,7 @@ export interface Price {
   offer?: string | null;
   scraping_time: string;
   brand_id?: number | null;
-  store_id?: number | null;
+  store_id?: store;
   product_id: number;
 }
 
