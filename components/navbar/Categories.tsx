@@ -22,6 +22,8 @@ export default function CategoriesPage() {
     (category) => category.parent_id === null
   );
 
+  console.log(parentCategories);
+
   return (
     <div className="flex justify-between gap-2 items-center py-2 overflow-auto mx-1 md:mx-20">
       {parentCategories.map((parentCategory) => (
@@ -46,7 +48,8 @@ export default function CategoriesPage() {
 
           {showSubCategories === parentCategory.id &&
             categories.filter(
-              (subCategory) => subCategory.parent_id === parentCategory.id
+              (subCategory) =>
+                String(subCategory.parent_id) === String(parentCategory.id)
             ).length != 0 && (
               <div className="hidden lg:block bg-white shadow-xl absolute p-2 rounded-xl w-[100%] left-0 z-10">
                 <div className="font-bold p-4">{parentCategory.name}</div>
@@ -55,7 +58,8 @@ export default function CategoriesPage() {
                   {categories
                     .filter(
                       (subCategory) =>
-                        subCategory.parent_id === parentCategory.id
+                        String(subCategory.parent_id) ===
+                        String(parentCategory.id)
                     )
                     .map((subCategory) => (
                       <Link
@@ -64,10 +68,7 @@ export default function CategoriesPage() {
                         href={`/category/${parentCategory.slug}/${subCategory.slug}`}
                       >
                         <div>
-                          <SubCategoriesBox
-                            img={subCategory.img}
-                            name={subCategory.name}
-                          />
+                          <SubCategoriesBox name={subCategory.name} />
                         </div>
                       </Link>
                     ))}

@@ -1,10 +1,11 @@
 import Image from "next/image";
 import { Category } from "@/hooks/useCategory";
 
-export const SubCategoryBox: React.FC<Category> = ({ img, name }) => {
+export const SubCategoryBox: React.FC<Category> = ({ name }) => {
   return (
     <div
       className="
+        
         flex
         flex-wrap
         border-2
@@ -25,17 +26,6 @@ export const SubCategoryBox: React.FC<Category> = ({ img, name }) => {
        
       "
     >
-      {img ? (
-        <Image
-          alt={name}
-          src={img}
-          width={40}
-          height={40}
-          className="w-8 lg:w-12 h-auto"
-        />
-      ) : (
-        <div className="w-8 lg:w-12 h-8 lg:h-12 bg-gray-300 rounded-full"></div>
-      )}
       {name && (
         <span className="font-semibold text-sm lg:text-base  whitespace-nowrap">
           {name}
