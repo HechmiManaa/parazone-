@@ -5,9 +5,9 @@ import { Carousel } from "react-responsive-carousel";
 import Image from "next/image";
 
 const heroImages = [
-  { imgUrl: "/products/ecran.jpg", alt: "ecran" },
-  { imgUrl: "/products/bodypowder.jpg", alt: "bodypowder" },
-  { imgUrl: "/products/handsoap.jpg", alt: "handsoap" },
+  { imgUrl: "/products/svr.png", alt: "svr" },
+  { imgUrl: "/products/nuxe.png", alt: "nuxe" },
+  { imgUrl: "/products/lirene.png", alt: "lirene" },
 ];
 
 const Hero = () => {
@@ -16,17 +16,17 @@ const Hero = () => {
       <div className="flex max-xl:flex-col gap-16">
         <div className="flex flex-col justify-center flex-1">
           <p className="small-text">
-            Your Trusted Parapharmacie Partner{" "}
+            Votre partenaire parapharmacie de confiance{" "}
             <HiArrowSmallRight className="mt-1" />
           </p>
 
           <h1 className="head-text">
-            Discover Health & Wellness with Parazone
+            Découvrez la santé et le bien-être avec Parazone
           </h1>
 
           <p className="mt-6">
-            Discover a wide range of healthcare products and services at your
-            fingertips.
+            Découvrez une large gamme de produits et services de santé chez vous
+            bouts des doigts.
           </p>
         </div>
         <div className="flex-1">
@@ -45,7 +45,7 @@ const Hero = () => {
                     src={image.imgUrl}
                     alt={image.alt}
                     width={1000}
-                    height={500}
+                    height={1000}
                     className="object-cover"
                   />
                 </div>

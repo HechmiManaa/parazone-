@@ -22,8 +22,6 @@ export default function CategoriesPage() {
     (category) => category.parent_id === null
   );
 
-  console.log(parentCategories);
-
   return (
     <div className="flex justify-between gap-2 items-center py-2 overflow-auto mx-1 md:mx-20">
       {parentCategories.map((parentCategory) => (

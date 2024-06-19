@@ -1,26 +1,28 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { IoSearchOutline } from "react-icons/io5";
 import { Product, useProductStore } from "@/hooks/useProduct";
 import Image from "next/image";
 import Link from "next/link";
 import { useCategoryStore } from "@/hooks/useCategory";
+import { useRelationStore } from "@/hooks/useRelation";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const { categories, fetchCategories } = useCategoryStore();
   const { products, fetchProducts } = useProductStore();
+  const { relations, fetchRelations } = useRelationStore();
   const searchBarRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-  const router = useRouter();
 
   useEffect(() => {
-    if (products.length === 0) {
-      fetchProducts();
-    }
+    if (products.length === 0) fetchProducts();
+    if (relations.length === 0) fetchRelations();
+  }, [products.length, relations.length, fetchProducts, fetchRelations]);
 
+  useEffect(() => {
     if (searchTerm) {
       const results = products.filter((product) =>
         product.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -29,15 +31,14 @@ const SearchBar = () => {
     } else {
       setFilteredProducts([]);
     }
-  }, [searchTerm, products, fetchProducts]);
+  }, [searchTerm, products]);
 
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
 
   useEffect(() => {
-    // Clear the search term when the pathname changes (i.e., navigation happens)
-    setSearchTerm("");
+    setSearchTerm(""); // Clear the search term when the pathname changes
   }, [pathname]);
 
   useEffect(() => {
@@ -49,13 +50,29 @@ const SearchBar = () => {
         setSearchTerm("");
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const getCategoryById = (categoryId: string | null | undefined) =>
+    categories.find((category) => String(category.id) === categoryId);
+
+  const getSlugsForProduct = (productId: number) => {
+    const relation = relations.find((rel) => rel.product_id === productId);
+    if (!relation) return { parentCategorySlug: null, subCategorySlug: null };
+
+    const subCategory = getCategoryById(String(relation.category_id));
+    const parentCategory = subCategory
+      ? getCategoryById(String(subCategory.parent_id))
+      : null;
+
+    return {
+      parentCategorySlug: parentCategory ? parentCategory.slug : null,
+      subCategorySlug: subCategory ? subCategory.slug : null,
+    };
+  };
 
   return (
     <div ref={searchBarRef} className="relative z-20">
@@ -63,39 +80,32 @@ const SearchBar = () => {
         <IoSearchOutline size={20} className="text-gray-400 mr-4" />
         <input
           type="text"
-          placeholder="Search for your product here..."
+          placeholder="Recherchez votre produit ici..."
           className="border-none outline-none flex-grow"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
       {searchTerm && (
-        <div className="absolute bg-white p-4 w-2/3 shadow-2xl mt-2 rounded-lg">
+        <div className="absolute bg-white h-64 overflow-y-auto p-4 w-full shadow-2xl mt-2 rounded-lg">
           {filteredProducts.length > 0 ? (
-            <div className="flex flex-wrap justify-start gap-4">
+            <div className="flex flex-col justify-center gap-1">
               {filteredProducts.map((product) => {
-                // Find the category for the current product
-                const productCategory = categories.find(
-                  (cat) => cat.id === product.category_id.id
-                );
-                // Find the parent category for the current product category
-                const parentCategory = categories.find(
-                  (cat) => cat.id === productCategory?.parent_id
-                );
-
+                const { parentCategorySlug, subCategorySlug } =
+                  getSlugsForProduct(product.id);
                 return (
                   <Link
                     key={product.id}
-                    href={`/category/${parentCategory?.slug}/${productCategory?.slug}/${product.slug}`}
+                    href={`/category/${parentCategorySlug}/${subCategorySlug}/${product.slug}`}
                     className="cursor-pointer hover:text-blue-500"
                   >
-                    <div className="flex justify-center items-center gap-2 w-48 border-2 rounded-lg p-2">
+                    <div className="flex items-center gap-2 w-full hover:border-2 rounded-lg transition duration-300 ease-in-out">
                       <Image
-                        src={`https://admin.parazone.tn/assets/${product.product_img}`}
+                        src={`${product.product_img}`}
                         alt={product.title}
                         width={100}
                         height={100}
-                        className="w-20 h-20 object-cover rounded-md"
+                        className="w-12 h-12 object-cover rounded-md"
                       />
                       <div className="text-xs">{product.title}</div>
                     </div>
