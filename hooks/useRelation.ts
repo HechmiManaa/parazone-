@@ -4,7 +4,7 @@ import axios from "axios";
 
 export interface Relation {
   product_id: number;
-  relation_id: number;
+  category_id: number;
 }
 
 interface RelationStore {
