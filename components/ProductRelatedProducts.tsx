@@ -38,7 +38,6 @@ const ProductRelatedProducts: React.FC<ProductRelatedProductsProps> = ({
         .map((relation) => relation.product_id),
     [relations, categoryId]
   );
-  console.log(productIds);
 
   // Filter products based on the related product IDs
   const relatedProduct = useMemo(
