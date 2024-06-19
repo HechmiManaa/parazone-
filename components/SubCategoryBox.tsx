@@ -1,17 +1,11 @@
 import Image from "next/image";
+import { Category } from "@/hooks/useCategory";
 
-interface CategoryBoxProps {
-  id?: number;
-  icon?: string | undefined;
-  parent_id?: number | undefined;
-  description?: string | undefined;
-  name: string;
-}
-
-const CategoryBox: React.FC<CategoryBoxProps> = ({ icon, name }) => {
+export const SubCategoryBox: React.FC<Category> = ({ name }) => {
   return (
     <div
       className="
+        
         flex
         flex-wrap
         border-2
@@ -32,17 +26,6 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({ icon, name }) => {
        
       "
     >
-      {icon ? (
-        <Image
-          alt={name}
-          src={`https://admin.parazone.tn/assets/${icon}`}
-          width={40}
-          height={40}
-          className="w-8 lg:w-12 h-auto"
-        />
-      ) : (
-        <div className="w-8 lg:w-12 h-8 lg:h-12 bg-gray-300 rounded-full"></div>
-      )}
       {name && (
         <span className="font-semibold text-sm lg:text-base  whitespace-nowrap">
           {name}
@@ -52,4 +35,4 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({ icon, name }) => {
   );
 };
 
-export default CategoryBox;
+export default SubCategoryBox;

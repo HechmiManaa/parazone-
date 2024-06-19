@@ -1,46 +1,38 @@
-import { Category, useCategoryStore } from "@/hooks/useCategoryStore";
+import { useCategoryStore } from "@/hooks/useCategory";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
-
-interface ProductCardProps {
-  id: number;
-  name: string;
-  description: string;
-  category_id: Category;
-  brand?: string | null;
-  url?: string | null;
-  slug: string;
-}
+import { Product } from "@/hooks/useProduct";
+import { useRelationStore } from "@/hooks/useRelation";
 
 export function ProductCard({
   id,
-  name,
-  description,
-  category_id,
-  brand,
-  url,
+  title,
   slug,
-}: ProductCardProps) {
+  long_description,
+  short_description,
+  product_img,
+  brand_id,
+  store_id,
+}: Product) {
   const { categories, fetchCategories } = useCategoryStore();
+  const { relations, fetchRelations } = useRelationStore();
+
+  useEffect(() => {
+    fetchRelations();
+  }, [fetchRelations]);
 
   useEffect(() => {
     fetchCategories();
   }, [fetchCategories]);
 
-  const parentCategory = categories.find(
-    (cat) => cat.id === category_id.parent_id
-  );
-
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden w-80  cursor-pointer h-full">
-      <Link
-        href={`/category/${parentCategory?.slug}/${category_id.slug}/${slug}`}
-      >
+      <Link href={`/category/${slug}`}>
         <div className="relative w-full h-48 ">
           <Image
-            alt={name}
-            src={`https://admin.parazone.tn/assets/${url}`}
+            alt={title}
+            src={`${product_img}`}
             layout="fill"
             objectFit="cover"
             objectPosition="center"
@@ -48,14 +40,10 @@ export function ProductCard({
           />
         </div>
         <div className="p-4 h-40 flex flex-col justify-around">
-          <p className="text-sm font-semibold text-gray-900">{name}</p>
+          <p className="text-sm font-semibold text-gray-900">{title}</p>
           <div>
-            <p className="text-xs font-semibold text-gray-600">
-              brand: {brand}
-            </p>
-            <p className="text-xs font-semibold text-gray-600">
-              category: {category_id.name}
-            </p>
+            <p className="text-xs font-semibold text-gray-600">brand: dezd</p>
+            <p className="text-xs font-semibold text-gray-600">category: aze</p>
           </div>
 
           <p className="overflow-hidden whitespace-nowrap overflow-ellipsis text-gray-700">
