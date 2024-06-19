@@ -17,13 +17,15 @@ export default function CategoriesPage() {
   }, [fetchCategories]);
 
   // Filter out parent categories
-  const parentCategories = categories.filter(
+  {
+    /*const parentCategories = categories.filter(
     (category) => category.parent_id === null
-  );
+  );*/
+  }
 
   return (
     <div className="flex justify-between gap-2 items-center py-2 overflow-auto mx-1 md:mx-20">
-      {parentCategories.map((parentCategory) => (
+      {categories.map((parentCategory) => (
         <div
           key={parentCategory.id}
           className=""
@@ -33,10 +35,10 @@ export default function CategoriesPage() {
           <div className="font-bold text-xl mb-2">
             <Link
               key={parentCategory.id}
-              href={`/category/${parentCategory.name.toLowerCase()}`}
+              href={`/category/${parentCategory.slug}`}
             >
               <CategoryBox
-                icon={parentCategory.icon}
+                icon={parentCategory.img}
                 name={parentCategory.name}
               />
             </Link>
@@ -59,11 +61,11 @@ export default function CategoriesPage() {
                       <Link
                         onClick={() => setShowSubCategories(null)}
                         key={subCategory.id}
-                        href={`/category/${parentCategory.name.toLowerCase()}/${subCategory.name.toLowerCase()}`}
+                        href={`/category/${parentCategory.slug}/${subCategory.slug}`}
                       >
                         <div>
                           <SubCategoriesBox
-                            icon={subCategory.icon}
+                            icon={subCategory.img}
                             name={subCategory.name}
                           />
                         </div>
