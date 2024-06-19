@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["admin.parazone.tn"], // Allows Next.js Image Optimization to load images from this domain
+    domains: [
+      "admin.parazone.tn",
+      "www.parafendri.tn",
+      "www.maparatunisie.tn",
+      "",
+    ], // Allows Next.js Image Optimization to load images from this domain
   },
   async headers() {
     return [

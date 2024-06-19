@@ -1,10 +1,10 @@
 "use client";
-import { Product, useProductStore } from "@/hooks/useProductStore";
+import { Product, useProductStore } from "@/hooks/useProduct";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Prices, usePricesStore } from "@/hooks/usePrices";
-import { useCategoryStore } from "@/hooks/useCategoryStore";
+import { Price, usePricesStore } from "@/hooks/usePrice";
+import { useCategoryStore } from "@/hooks/useCategory";
 
 export default function ProductPage({
   params,
@@ -14,7 +14,7 @@ export default function ProductPage({
   const productName = params.productName;
 
   const [product, setProduct] = useState<Product | null>();
-  const [filteredPrices, setFilteredPrices] = useState<Prices[]>([]);
+  const [filteredPrices, setFilteredPrices] = useState<Price[]>([]);
 
   const [showMore, setShowMore] = useState<boolean>(false);
 
@@ -79,12 +79,11 @@ export default function ProductPage({
     <div>
       {/* Main Product */}
       <div className="max-w-auto py-8 sm:px-6 lg:px-20 flex flex-col lg:flex-row lg:items-start lg:gap-x-8 mx-auto px-4 md:px-10 items-center justify-between">
-        {/* Product Image */}
         <div className="w-full lg:h-96 lg:w-96">
           <div className="flex justify-center lg:block border-2 rounded-lg border-gray-200 p-1">
             <Image
-              src={`https://admin.parazone.tn/assets/${product.url}`}
-              alt={product.name}
+              src={`https://admin.parazone.tn/assets/${product.product_img}`}
+              alt={product.title}
               className="rounded-lg h-32 w-32"
               layout="responsive"
               objectFit="cover"
@@ -97,7 +96,7 @@ export default function ProductPage({
         {/* Product Info */}
         <div className="lg:w-2/3 mt-4 lg:mt-0">
           <h3 className="text-xl lg:text-2xl font-semibold tracking-tight text-gray-900">
-            {product.name}
+            {product.title}
           </h3>
 
           <div className="mt-2">
@@ -111,13 +110,13 @@ export default function ProductPage({
 
           <div className="mt-6">
             <div className="text-gray-700 text-xs lg:text-base">
-              {product.description.length > MAX_DESCRIPTION_LENGTH ? (
+              {product.short_description.length > MAX_DESCRIPTION_LENGTH ? (
                 <div>
                   <div
                     dangerouslySetInnerHTML={{
                       __html: showMore
-                        ? product.description
-                        : `${product.description.substring(
+                        ? product.short_description
+                        : `${product.short_description.substring(
                             0,
                             MAX_DESCRIPTION_LENGTH
                           )}...`,
@@ -132,7 +131,9 @@ export default function ProductPage({
                 </div>
               ) : (
                 <div
-                  dangerouslySetInnerHTML={{ __html: product.description }}
+                  dangerouslySetInnerHTML={{
+                    __html: product.short_description,
+                  }}
                 ></div>
               )}
             </div>
@@ -163,8 +164,8 @@ export default function ProductPage({
                     <div className="flex items-center">
                       <div className="w-20 h-20 flex-shrink-0">
                         <Image
-                          src={`https://admin.parazone.tn/assets/${relatedProduct.url}`}
-                          alt={relatedProduct.name}
+                          src={`https://admin.parazone.tn/assets/${relatedProduct.product_img}`}
+                          alt={relatedProduct.title}
                           className="rounded-lg"
                           height={100}
                           width={100}
@@ -174,7 +175,7 @@ export default function ProductPage({
                       </div>
                       <div className="ml-4 flex-1">
                         <h3 className="text-xs font-semibold text-gray-900">
-                          {relatedProduct.name}
+                          {relatedProduct.title}
                         </h3>
                         <p className="text-xs text-gray-700">
                           Brand: {relatedProduct.brand}
@@ -200,7 +201,7 @@ export default function ProductPage({
             {filteredPrices.length > 0 ? (
               <ul className="flex flex-col gap-4 w-full p-2">
                 {filteredPrices
-                  .sort((a, b) => a.price - b.price)
+                  .sort((a, b) => a.value - b.value)
                   .map((price) => (
                     <li
                       key={price.id}
@@ -212,15 +213,15 @@ export default function ProductPage({
                         </p>
                       </div>
                       <div className="w-full flex items-center justify-around">
-                        {price.store_id.logo_url_ && (
+                        {price.store_logo && (
                           <Link
-                            href={price.store_id.website}
+                            href={price.store_url}
                             passHref
                             target="_blank"
                             rel="noopener noreferrer"
                           >
                             <Image
-                              src={`https://admin.parazone.tn/assets/${price.store_id.logo_url_}`}
+                              src={`https://admin.parazone.tn/assets/${price.store_logo}`}
                               alt="Store Logo"
                               width={100}
                               height={100}
@@ -229,10 +230,10 @@ export default function ProductPage({
                           </Link>
                         )}
                         <p className="mt-4 font-bold text-xs lg:text-base mb-2">
-                          {price.price} dt
+                          {price.value} dt
                         </p>
                         <a
-                          href={price.price_url}
+                          href={price.product_url}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-white blue-background py-1 lg:py-2 px-1 lg:px-4 rounded inline-block text-sm lg:text-base"

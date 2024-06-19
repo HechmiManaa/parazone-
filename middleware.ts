@@ -40,10 +40,10 @@ export async function middleware(req: NextRequest) {
   const corsResponse = handleCors(req);
   if (corsResponse) return corsResponse;
 
-  if (req.nextUrl.pathname.startsWith("/api/categories")) {
+  if (req.nextUrl.pathname.startsWith("/api/category")) {
     try {
       const response = await axios.get(
-        "https://admin.parazone.tn/items/Category"
+        "https://admin.parazone.tn/items/category"
       );
       return NextResponse.json(response.data);
     } catch (error) {
@@ -54,10 +54,10 @@ export async function middleware(req: NextRequest) {
     }
   }
 
-  if (req.nextUrl.pathname.startsWith("/api/products")) {
+  if (req.nextUrl.pathname.startsWith("/api/product")) {
     try {
       const response = await axios.get(
-        "https://admin.parazone.tn/items/products?fields=*,category_id.*"
+        "https://admin.parazone.tn/items/product"
       );
       return NextResponse.json(response.data);
     } catch (error) {
@@ -68,10 +68,22 @@ export async function middleware(req: NextRequest) {
     }
   }
 
-  if (req.nextUrl.pathname.startsWith("/api/prices")) {
+  if (req.nextUrl.pathname.startsWith("/api/price")) {
+    try {
+      const response = await axios.get("https://admin.parazone.tn/items/price");
+      return NextResponse.json(response.data);
+    } catch (error) {
+      return NextResponse.json(
+        { error: "Failed to fetch data from Directus API" },
+        { status: 500 }
+      );
+    }
+  }
+
+  if (req.nextUrl.pathname.startsWith("/api/relation")) {
     try {
       const response = await axios.get(
-        "https://admin.parazone.tn/items/prices?fields=*,store_id.*"
+        "https://admin.parazone.tn/items/relation"
       );
       return NextResponse.json(response.data);
     } catch (error) {

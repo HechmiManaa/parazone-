@@ -1,14 +1,6 @@
-import Image from "next/image";
+import { Category } from "@/hooks/useCategory";
 
-interface CategoryBoxProps {
-  id?: number;
-  icon?: string | undefined;
-  parent_id?: number | undefined;
-  description?: string | undefined;
-  name?: string | undefined;
-}
-
-const CategoryBox: React.FC<CategoryBoxProps> = ({ icon, name }) => {
+const CategoryBox: React.FC<Category> = ({ name }) => {
   return (
     <div
       className="
@@ -27,15 +19,6 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({ icon, name }) => {
                 transition
                "
     >
-      {name && icon && (
-        <Image
-          alt={name}
-          src={`https://admin.parazone.tn/assets/${icon}`}
-          width={500}
-          height={600}
-          className="w-4 lg:w-5"
-        />
-      )}
       {name && (
         <span className="font-semibold text-xs  whitespace-nowrap">{name}</span>
       )}
