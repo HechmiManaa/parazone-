@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import CategoryBox from "./CategoryBox"; // Adjust the import path as necessary
-import SubCategoriesBox from "./SubCategoriesBox";
-import { useCategoryStore } from "@/hooks/useCategoryStore"; // Adjust the import path as necessary
+import SubCategoriesBox from "./SubCategoryBox";
+import { useCategoryStore } from "@/hooks/useCategory"; // Adjust the import path as necessary
 
 export default function CategoriesPage() {
   const { categories, fetchCategories } = useCategoryStore();
@@ -17,15 +17,14 @@ export default function CategoriesPage() {
   }, [fetchCategories]);
 
   // Filter out parent categories
-  {
-    /*const parentCategories = categories.filter(
+
+  const parentCategories = categories.filter(
     (category) => category.parent_id === null
-  );*/
-  }
+  );
 
   return (
     <div className="flex justify-between gap-2 items-center py-2 overflow-auto mx-1 md:mx-20">
-      {categories.map((parentCategory) => (
+      {parentCategories.map((parentCategory) => (
         <div
           key={parentCategory.id}
           className=""
@@ -38,8 +37,9 @@ export default function CategoriesPage() {
               href={`/category/${parentCategory.slug}`}
             >
               <CategoryBox
-                icon={parentCategory.img}
                 name={parentCategory.name}
+                id={parentCategory.id}
+                img={""}
               />
             </Link>
           </div>
@@ -65,7 +65,7 @@ export default function CategoriesPage() {
                       >
                         <div>
                           <SubCategoriesBox
-                            icon={subCategory.img}
+                            img={subCategory.img}
                             name={subCategory.name}
                           />
                         </div>

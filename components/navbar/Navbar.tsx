@@ -6,8 +6,6 @@ import Categories from "./Categories";
 import SearchBar from "./SearchBar";
 
 import { FaSearch } from "react-icons/fa";
-import { FaUser } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa";
 
 const Navbar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -41,8 +39,6 @@ const Navbar = () => {
             onClick={() => handleIconClick()}
             size={20}
           />
-          <FaUser size={20} className="text-neutral-700 cursor-pointer" />
-          <FaHeart size={20} className="text-neutral-700 cursor-pointer" />
         </div>
       </div>
 

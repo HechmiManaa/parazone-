@@ -2,10 +2,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { IoSearchOutline } from "react-icons/io5";
-import { Product, useProductStore } from "@/hooks/useProductStore";
+import { Product, useProductStore } from "@/hooks/useProduct";
 import Image from "next/image";
 import Link from "next/link";
-import { useCategoryStore } from "@/hooks/useCategoryStore";
+import { useCategoryStore } from "@/hooks/useCategory";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -23,7 +23,7 @@ const SearchBar = () => {
 
     if (searchTerm) {
       const results = products.filter((product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        product.title.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setFilteredProducts(results);
     } else {
@@ -91,13 +91,13 @@ const SearchBar = () => {
                   >
                     <div className="flex justify-center items-center gap-2 w-48 border-2 rounded-lg p-2">
                       <Image
-                        src={`https://admin.parazone.tn/assets/${product.url}`}
-                        alt={product.name}
+                        src={`https://admin.parazone.tn/assets/${product.product_img}`}
+                        alt={product.title}
                         width={100}
                         height={100}
                         className="w-20 h-20 object-cover rounded-md"
                       />
-                      <div className="text-xs">{product.name}</div>
+                      <div className="text-xs">{product.title}</div>
                     </div>
                   </Link>
                 );

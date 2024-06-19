@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import { useProductStore } from "@/hooks/useProductStore"; // Adjust the import path
+import { useProductStore } from "@/hooks/useProduct"; // Adjust the import path
 import { ProductCard } from "@/components/ProductCard";
-import { useCategoryStore } from "@/hooks/useCategoryStore";
+import { useCategoryStore } from "@/hooks/useCategory";
 
 export default function ProductsPageByCategory({
   params,
@@ -44,9 +44,9 @@ export default function ProductsPageByCategory({
               <ProductCard
                 id={product.id}
                 category_id={product.category_id}
-                url={product.url}
-                name={product.name}
-                description={product.description}
+                url={product.product_img}
+                name={product.title}
+                description={product.short_description}
                 brand={product.brand}
                 slug={product.slug}
               />

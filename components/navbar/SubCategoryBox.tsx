@@ -1,14 +1,12 @@
-import Image from "next/image";
-
 interface SubCategoryBoxProps {
   id?: number;
-  icon?: string | undefined;
+  img?: string | undefined;
   parent_id?: number | undefined;
   description?: string | undefined;
   name?: string | undefined;
 }
 
-const SubCategoriesBox: React.FC<SubCategoryBoxProps> = ({ icon, name }) => {
+const SubCategoriesBox: React.FC<SubCategoryBoxProps> = ({ img, name }) => {
   return (
     <div
       className="
