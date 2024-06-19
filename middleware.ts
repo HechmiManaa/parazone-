@@ -96,6 +96,30 @@ export async function middleware(req: NextRequest) {
     }
   }
 
+  if (req.nextUrl.pathname.startsWith("/api/brand")) {
+    try {
+      const response = await axios.get("https://admin.parazone.tn/items/brand");
+      return NextResponse.json(response.data);
+    } catch (error) {
+      return NextResponse.json(
+        { error: "Failed to fetch data from Directus API" },
+        { status: 500 }
+      );
+    }
+  }
+
+  if (req.nextUrl.pathname.startsWith("/api/store")) {
+    try {
+      const response = await axios.get("https://admin.parazone.tn/items/store");
+      return NextResponse.json(response.data);
+    } catch (error) {
+      return NextResponse.json(
+        { error: "Failed to fetch data from Directus API" },
+        { status: 500 }
+      );
+    }
+  }
+
   // Handle default route
   if (req.nextUrl.pathname === "/") {
     return new NextResponse("Hello World");

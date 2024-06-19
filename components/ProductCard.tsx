@@ -12,29 +12,22 @@ export function ProductCard({
   store_id,
 }: Product) {
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden w-80 cursor-pointer h-full">
-      <div className="relative w-full h-48">
+    <div className="bg-white rounded-lg shadow-lg overflow-hidden w-80 cursor-pointer h-full hover:bg-gray-50">
+      <div className="flex items-center justify-center mb-4">
         <Image
           alt={title}
           src={`${product_img}`}
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center"
-          className="rounded-t-lg"
+          width={500}
+          height={500}
+          className=" object-cover rounded-full w-full h-60"
         />
       </div>
-      <div className="p-4 h-40 flex flex-col justify-around">
-        <p className="text-sm font-semibold text-gray-900">{title}</p>
+      <div className="p-4 h-22 flex flex-col justify-around">
+        <p className="text-sm font-bold text-gray-900">{title}</p>
         <div>
-          <p className="text-xs font-semibold text-gray-600">
-            Brand: {brand_id?.title}
+          <p className="text-xs font-semibold text-gray-600 py-2">
+            Marque: {brand_id?.title}
           </p>
-        </div>
-        <div className="overflow-hidden whitespace-nowrap overflow-ellipsis text-gray-700">
-          <div
-            className="text-xs font-semibold text-gray-600"
-            dangerouslySetInnerHTML={{ __html: short_description }}
-          ></div>
         </div>
       </div>
     </div>
