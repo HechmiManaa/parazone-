@@ -67,7 +67,7 @@ export const RelatedProducts = () => {
         <h2 className="text-center text-2xl mb-2 font-extrabold text-black py-2 pb-5">
           Derniers produits
         </h2>
-        <div className="grid grid-cols-2 lg:grid-cols-1 lg:flex lg:flex-row justify-center items-center gap-2 px-2">
+        <div className="grid grid-cols-2 lg:grid-cols-4  items-center gap-8 mx-2 lg:mx-10">
           {filteredProducts
             .slice(-4)
             .reverse()
@@ -76,17 +76,15 @@ export const RelatedProducts = () => {
                 key={product.id}
                 href={`/category/${product.parentCategorySlug}/${product.subCategorySlug}/${product.slug}`}
               >
-                <div className="flex justify-center">
-                  <ProductCard
-                    id={product.id}
-                    product_img={product.product_img}
-                    title={product.title}
-                    short_description={product.short_description}
-                    brand_id={product.brand_id}
-                    slug={product.slug}
-                    long_description={""}
-                  />
-                </div>
+                <ProductCard
+                  id={product.id}
+                  product_img={product.product_img}
+                  title={product.title}
+                  short_description={product.short_description}
+                  brand_id={product.brand_id}
+                  slug={product.slug}
+                  long_description={""}
+                />
               </Link>
             ))}
         </div>
