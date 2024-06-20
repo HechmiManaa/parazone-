@@ -1,26 +1,47 @@
-import { Price, usePricesStore } from "@/hooks/usePrice";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { usePricesStore, Price } from "@/hooks/usePrice";
 
-interface itemProps {
+interface ItemProps {
   productId: string;
   productSlug: string;
 }
 
-const Items: React.FC<itemProps> = ({ productId, productSlug }) => {
+const Items: React.FC<ItemProps> = ({ productId, productSlug }) => {
   const { Prices, fetchPrices } = usePricesStore();
-  const [filteredPrices, setFilteredPrices] = useState<Price[]>([]);
+  const [latestPrices, setLatestPrices] = useState<Price[]>([]);
 
   useEffect(() => {
     fetchPrices();
   }, [fetchPrices]);
 
   useEffect(() => {
-    const filtered = Prices.filter(
-      (price) => String(price.product_id) === productId
-    );
-    setFilteredPrices(filtered);
+    const groupedPrices: { [storeId: string]: Price[] } = {};
+
+    Prices.forEach((price) => {
+      if (!groupedPrices[String(price.store_id)]) {
+        groupedPrices[String(price.store_id)] = [];
+      }
+      groupedPrices[String(price.store_id)].push(price);
+    });
+
+    const latestPricesArray: Price[] = [];
+
+    Object.keys(groupedPrices).forEach((storeId) => {
+      const pricesForStore = groupedPrices[storeId];
+      const sortedPrices = pricesForStore.sort((a, b) => {
+        return (
+          new Date(b.scraping_time).getTime() -
+          new Date(a.scraping_time).getTime()
+        );
+      });
+      if (sortedPrices.length > 0) {
+        latestPricesArray.push(sortedPrices[0]);
+      }
+    });
+
+    setLatestPrices(latestPricesArray);
   }, [Prices, productSlug, productId]);
 
   const LoadNum = 4;
@@ -32,7 +53,7 @@ const Items: React.FC<itemProps> = ({ productId, productSlug }) => {
       </h1>
 
       <div className="w-full p-4">
-        {filteredPrices.length > 0 ? (
+        {latestPrices.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="table table-zebra">
               <thead>
@@ -46,73 +67,69 @@ const Items: React.FC<itemProps> = ({ productId, productSlug }) => {
                 </tr>
               </thead>
               <tbody>
-                {filteredPrices
-                  .sort((a, b) => a.value - b.value)
-                  .map((price) => (
-                    <tr className="bg-white" key={price.id}>
-                      <td>
-                        <p className=" text-[9px] w-20 font-semibold lg:text-sm lg:w-full">
-                          {price.title}
-                        </p>
-                      </td>
-                      <td>
-                        {price.store_id?.logo && (
-                          <Link
-                            href={price.store_id?.url}
-                            passHref
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <Image
-                              src={`${price.store_id.logo}`}
-                              alt="Store Logo"
-                              width={100}
-                              height={100}
-                              className="w-16 lg:w-24 rounded-full"
-                            />
-                          </Link>
-                        )}
-                      </td>
-                      <td>
-                        <div className=" flex gap-1 mt-4 font-bold text-xs lg:text-base mb-2 blue">
-                          <div>{price.value} </div>
-                          <div>dt</div>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="flex flex-col justify-center items-center">
-                          <p className="text-xs">{price.delivery_time}</p>
-                          <p className="text-xs">{price.delivery_price} dt</p>
-                        </div>
-                      </td>
-                      <td>
-                        <p
-                          className={`${
-                            price.availability === "Disponible"
-                              ? "text-green-500"
-                              : "text-red-500"
-                          } font-semibold text-xs`}
-                        >
-                          {price.availability}
-                        </p>
-                      </td>
-                      <td>
-                        <p className="text-xs w-20 text-center">
-                          {price.offer}
-                        </p>
-                      </td>
-                      <td>
-                        <a
-                          href={price.product_url}
+                {latestPrices.map((price) => (
+                  <tr className="bg-white" key={price.id}>
+                    <td>
+                      <p className=" text-[9px] w-20 font-semibold lg:text-sm lg:w-full">
+                        {price.title}
+                      </p>
+                    </td>
+                    <td>
+                      {price.store_id?.logo && (
+                        <Link
+                          href={price.store_id?.url}
+                          passHref
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-white blue-background py-1 lg:py-2 px-1 lg:px-4 rounded inline-block text-sm lg:text-base"
                         >
-                          Acheter
-                        </a>
-                      </td>
-                    </tr>
-                  ))}
+                          <Image
+                            src={`${price.store_id.logo}`}
+                            alt="Store Logo"
+                            width={100}
+                            height={100}
+                            className="w-16 lg:w-24 rounded-full"
+                          />
+                        </Link>
+                      )}
+                    </td>
+                    <td>
+                      <div className=" flex gap-1 mt-4 font-bold text-xs lg:text-base mb-2 blue">
+                        <div>{price.value} </div>
+                        <div>dt</div>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="flex flex-col justify-center items-center">
+                        <p className="text-xs">{price.delivery_time}</p>
+                        <p className="text-xs">{price.delivery_price} dt</p>
+                      </div>
+                    </td>
+                    <td>
+                      <p
+                        className={`${
+                          price.availability === "Disponible"
+                            ? "text-green-500"
+                            : "text-red-500"
+                        } font-semibold text-xs`}
+                      >
+                        {price.availability}
+                      </p>
+                    </td>
+                    <td>
+                      <p className="text-xs w-20 text-center">{price.offer}</p>
+                    </td>
+                    <td>
+                      <a
+                        href={price.product_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-white blue-background py-1 lg:py-2 px-1 lg:px-4 rounded inline-block text-sm lg:text-base"
+                      >
+                        Acheter
+                      </a>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

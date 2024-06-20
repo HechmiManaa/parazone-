@@ -3,8 +3,8 @@ import { create } from "zustand";
 import axios from "axios";
 
 export interface Relation {
-  product_id: number;
-  category_id: number;
+  product_id: string;
+  category_id: string;
 }
 
 interface RelationStore {

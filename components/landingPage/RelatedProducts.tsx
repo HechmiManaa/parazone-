@@ -17,38 +17,46 @@ export const RelatedProducts = () => {
     fetchCategories();
   }, [fetchProducts, fetchRelations, fetchCategories]);
 
-  const getCategoryById = (categoryId: string) => {
-    return categories.find(
-      (category) => String(category.id) === String(categoryId)
-    );
+  // Helper function to find a category by ID
+  const getCategoryById = (categoryId: number) => {
+    return categories.find((category) => category.id === categoryId);
   };
 
-  const getParentCategory = (category: Category | null | undefined) => {
-    if (category && category.parent_id) {
-      return getCategoryById(String(category.parent_id));
+  // Function to get subcategory slug by product ID
+  const getParentCategorySlug = (productId: string) => {
+    const relation = relations.find(
+      (relation) => String(relation.product_id) === productId
+    );
+    if (relation) {
+      const parentCategory = getCategoryById(Number(relation.category_id));
+      return parentCategory ? parentCategory.slug : null;
     }
     return null;
   };
 
-  const getSubCategorySlug = (productId: number) => {
-    const relation = relations.find(
-      (relation) => relation.product_id === productId
+  // Function to get parent category slug by product ID
+  const getSubCategorySlug = (productId: string) => {
+    // Find all relations for the given product ID
+    const productRelations = relations.filter(
+      (relation) => String(relation.product_id) === productId
     );
-    const subCategory = relation
-      ? getCategoryById(String(relation.category_id))
-      : null;
-    return subCategory ? subCategory.slug : null;
-  };
 
-  const getParentCategorySlug = (productId: number) => {
-    const relation = relations.find(
-      (relation) => relation.product_id === productId
-    );
-    const subCategory = relation
-      ? getCategoryById(String(relation.category_id))
-      : null;
-    const parentCategory = getParentCategory(subCategory);
-    return parentCategory ? parentCategory.slug : null;
+    // Iterate over relations to find parent and subcategory
+    let parentCategory = null;
+    let subCategory = null;
+
+    productRelations.forEach((relation) => {
+      const category = getCategoryById(Number(relation.category_id));
+      if (category) {
+        if (category.parent_id === null) {
+          parentCategory = category; // Category with no parent is considered a parent category
+        } else {
+          subCategory = category; // Category with a parent_id is considered a subcategory
+        }
+      }
+    });
+
+    return subCategory ? (subCategory as Category).slug : null;
   };
 
   const filteredProducts = products
@@ -69,7 +77,7 @@ export const RelatedProducts = () => {
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8 mx-2 lg:mx-10">
           {filteredProducts
-            .slice(0, 6)
+            .slice(0, 4)
             .reverse()
             .map((product) => (
               <Link

@@ -18,7 +18,7 @@ export interface store {
 }
 
 export interface Product {
-  id: number;
+  id: string;
   title: string;
   slug: string;
   long_description: string;
