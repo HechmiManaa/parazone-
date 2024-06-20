@@ -2,14 +2,14 @@
 import { create } from "zustand";
 import axios from "axios";
 
-interface brand {
+export interface brand {
   id: number;
   title: string;
   slug_title: string;
   logo: string;
 }
 
-interface store {
+export interface store {
   id: number;
   title: string;
   slug_title: string;
