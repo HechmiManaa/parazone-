@@ -1,11 +1,27 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      "admin.parazone.tn",
-      "www.parafendri.tn",
-      "www.maparatunisie.tn",
-      "lecoinpara.tn",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "admin.parazone.tn",
+        pathname: "**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.parafendri.tn",
+        pathname: "**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.maparatunisie.tn",
+        pathname: "**",
+      },
+      {
+        protocol: "https",
+        hostname: "lecoinpara.tn",
+        pathname: "**",
+      },
     ], // Allows Next.js Image Optimization to load images from this domain
   },
   async headers() {
@@ -27,7 +43,6 @@ const nextConfig = {
       },
     ];
   },
-  // other configurations
 };
 
 export default nextConfig;
