@@ -37,7 +37,7 @@ export const useProductStore = create<ProductStore>((set) => ({
   products: [],
   fetchProducts: async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/product`);
+      const response = await axios.get(`https://parazone.tn/api/product`);
       set({ products: response.data.data });
     } catch (error) {
       console.error(`Error fetching products`, error);
