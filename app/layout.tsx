@@ -19,17 +19,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
+      <Head>
+        <meta name="robots" content="noindex,nofollow" />
+      </Head>
       <body className={inter.className}>
         <main className="max-w10xl mx-auto">
-          <Head>
-            <title>Meta Tag Example</title>
-            <meta name="robots" content="noindex,nofollow" />
-            <meta name="googlebot" content="noindex,nofollow" />
-          </Head>
           <Navbar />
           {children}
           <Footer />
-          {/* <Footer /> */}
         </main>
       </body>
     </html>
