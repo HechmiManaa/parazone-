@@ -89,7 +89,7 @@ export default function ProductPage({
       (price) => String(price.product_id) === product?.id
     );
     setFilteredPrices(filtered);
-  }, [Prices, productSlug]);
+  }, [Prices, productSlug, product?.id]);
 
   if (!product) {
     return <div>Loading...</div>;

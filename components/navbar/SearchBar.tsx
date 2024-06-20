@@ -59,7 +59,7 @@ const SearchBar = () => {
   const getCategoryById = (categoryId: string | null | undefined) =>
     categories.find((category) => String(category.id) === categoryId);
 
-  const getSlugsForProduct = (productId: number) => {
+  const getSlugsForProduct = (productId: string) => {
     const relation = relations.find((rel) => rel.product_id === productId);
     if (!relation) return { parentCategorySlug: null, subCategorySlug: null };
 
