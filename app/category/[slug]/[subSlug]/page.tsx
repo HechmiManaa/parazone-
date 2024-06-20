@@ -53,12 +53,12 @@ export default function ProductsPageByCategory({
   );
 
   return (
-    <div className="container mx-auto py-12">
-      <h1 className="text-2xl ml-4 font-bold mb-8 capitalize">
+    <div className=" w-full mx-auto  py-12 bg-gray-100 ">
+      <h1 className="text-2xl ml-4 lg:ml-10 font-bold mb-8 capitalize">
         {category?.name || "Category"}
       </h1>
 
-      <div className="flex flex-col lg:flex-row flex-wrap justify-start items-center gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8 mx-2 lg:mx-10">
         {categoryProducts.length > 0 ? (
           categoryProducts.map((product) => (
             <div key={product.id}>
@@ -66,14 +66,10 @@ export default function ProductsPageByCategory({
                 href={`/category/${parentCategory}/${category?.slug}/${product?.slug}`}
               >
                 <ProductCard
-                  id={product.id}
                   title={product.title}
-                  slug={product.slug}
                   product_img={product.product_img}
-                  short_description={product.short_description}
-                  long_description={product.long_description}
                   brand_id={product.brand_id}
-                  store_id={product.store_id}
+                  new={false}
                 />
               </Link>
             </div>
