@@ -48,7 +48,7 @@ const Navbar = () => {
         </div>
       )}
 
-      <div className="w-full blue-background">
+      <div className="w-full blue-background pt-2">
         <Categories />
       </div>
     </div>
