@@ -21,7 +21,7 @@ const Items: React.FC<itemProps> = ({ productId, productSlug }) => {
       (price) => String(price.product_id) === productId
     );
     setFilteredPrices(filtered);
-  }, [Prices, productSlug]);
+  }, [Prices, productSlug, productId]);
 
   const LoadNum = 4;
 
