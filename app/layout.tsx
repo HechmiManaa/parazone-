@@ -10,6 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Parazone",
   description: "Parazone-TN",
+  robots: "noindex, nofollow",
 };
 
 export default function RootLayout({
@@ -19,9 +20,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <Head>
-        <meta name="robots" content="noindex,nofollow" />
-      </Head>
       <body className={inter.className}>
         <main className="max-w10xl mx-auto">
           <Navbar />
