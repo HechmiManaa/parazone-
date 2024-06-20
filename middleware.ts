@@ -8,7 +8,7 @@ function handleCors(req: NextRequest): NextResponse | null {
   const allowedOrigins = [
     "https://parazone.tn",
     "http://parazone.tn",
-    "http://localhost:3000",
+    "http://localhost:3003",
   ];
 
   if (allowedOrigins.includes(origin || "")) {
