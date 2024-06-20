@@ -67,9 +67,9 @@ export const RelatedProducts = () => {
         <h2 className="text-center text-2xl mb-2 font-extrabold text-black py-2 pb-5">
           Derniers produits
         </h2>
-        <div className="flex flex-row flex-wrap  items-center gap-8 mx-2 lg:mx-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8 mx-2 lg:mx-10">
           {filteredProducts
-            .slice(-4)
+            .slice(0, 6)
             .reverse()
             .map((product) => (
               <Link
@@ -77,14 +77,10 @@ export const RelatedProducts = () => {
                 href={`/category/${product.parentCategorySlug}/${product.subCategorySlug}/${product.slug}`}
               >
                 <ProductCard
-                  id={product.id}
                   title={product.title}
-                  slug={product.slug}
                   product_img={product.product_img}
-                  short_description={product.short_description}
-                  long_description={product.long_description}
                   brand_id={product.brand_id}
-                  store_id={product.store_id}
+                  new={true}
                 />
               </Link>
             ))}
