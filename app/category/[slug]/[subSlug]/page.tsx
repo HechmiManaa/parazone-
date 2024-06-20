@@ -67,12 +67,13 @@ export default function ProductsPageByCategory({
               >
                 <ProductCard
                   id={product.id}
-                  product_img={product.product_img}
                   title={product.title}
-                  short_description={product.short_description}
-                  brand_id={product.brand_id}
                   slug={product.slug}
-                  long_description={""}
+                  product_img={product.product_img}
+                  short_description={product.short_description}
+                  long_description={product.long_description}
+                  brand_id={product.brand_id}
+                  store_id={product.store_id}
                 />
               </Link>
             </div>

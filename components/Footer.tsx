@@ -10,13 +10,13 @@ const Footer = () => {
           <span className="text-lg font-semibold ml-2">Parazone</span>
         </div>
         <nav className="flex items-center gap-4">
-          <Link className="text-sm hover:underline" href="#">
+          <Link className="text-sm hover:underline" href="/privacy-policy">
             Privacy Policy
           </Link>
-          <Link className="text-sm hover:underline" href="#">
+          <Link className="text-sm hover:underline" href="/terms-of-service">
             Terms of Service
           </Link>
-          <Link className="text-sm hover:underline" href="/contact">
+          <Link className="text-sm hover:underline" href="/contact-us">
             Contact Us
           </Link>
         </nav>
