@@ -40,6 +40,7 @@ export default function CategoriesPage() {
                 name={parentCategory.name}
                 id={parentCategory.id}
                 img={""}
+                slug={""}
               />
             </Link>
           </div>
