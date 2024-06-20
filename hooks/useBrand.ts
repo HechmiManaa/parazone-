@@ -18,7 +18,7 @@ export const useBrandStore = create<BrandStore>((set) => ({
   Brands: [],
   fetchBrands: async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/brand");
+      const response = await axios.get("https://parazone.tn/api/brand");
       set({ Brands: response.data.data });
     } catch (error) {
       console.error("Error fetching Brands:", error);

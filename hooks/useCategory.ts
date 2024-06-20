@@ -6,7 +6,7 @@ export interface Category {
   id: number;
   name: string;
   slug?: string | null;
-  description?: string | null | undefined ;
+  description?: string | null | undefined;
   img: string;
   parent_id?: number | null;
 }
@@ -20,7 +20,7 @@ export const useCategoryStore = create<CategoryStore>((set) => ({
   categories: [],
   fetchCategories: async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/category");
+      const response = await axios.get("https://parazone.tn/api/category");
       set({ categories: response.data.data });
     } catch (error) {
       console.error("Error fetching categories:", error);
