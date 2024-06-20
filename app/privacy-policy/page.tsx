@@ -1,6 +1,7 @@
+// components/PrivacyPolicyPage.tsx
 import React from "react";
 
-const privacyPolicyPage = () => {
+const PrivacyPolicyPage: React.FC = () => {
   return (
     <div className="p-8 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
@@ -12,30 +13,6 @@ const privacyPolicyPage = () => {
         collect, use, and protect your personal information when you use our
         price comparator website.
       </p>
-
-      {/*<h2 className="text-2xl font-semibold mb-4">1. Information We Collect</h2>
-      <h3 className="text-xl font-semibold mb-2">a. Personal Information</h3>
-      <p className="mb-4">
-        When you use our services, we may collect the following personal
-        information:
-      </p>
-      <ul className="list-disc list-inside mb-6">
-        <li>Contact Information: Email address, phone number</li>
-        <li>Account Information: Username, password</li>
-        <li>
-          Usage Data: Pages visited, clicks, and interactions with the site
-        </li>
-        <li>Browser Information: Browser type, version</li>
-        <li>Device Information: Device type, operating system</li>
-        <li>Log Data: IP address, access times, referring URLs</li>
-      </ul>
-
-      <h3 className="text-xl font-semibold mb-2">
-        b. Non-Personal Information
-      </h3>
-      <p className="mb-6">
-        We may also collect non-personal information, such as:
-      </p>*/}
 
       <h2 className="text-2xl font-semibold mb-4">
         1. How We Use Your Information
@@ -142,4 +119,4 @@ const privacyPolicyPage = () => {
   );
 };
 
-export default privacyPolicyPage;
+export default PrivacyPolicyPage;

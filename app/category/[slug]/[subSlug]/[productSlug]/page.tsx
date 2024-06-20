@@ -64,7 +64,14 @@ export default function ProductPage({
       }
     };
     fetchProduct();
-  }, [productSlug, fetchProducts, products, products.length]);
+  }, [
+    productSlug,
+    fetchProducts,
+    products,
+    products.length,
+    product,
+    product?.id,
+  ]);
 
   /*fetching all the prices*/
   useEffect(() => {

@@ -1,16 +1,17 @@
 import React from "react";
 
-const termsOfServicePage = () => {
+const termsOfServicePage: React.FC = () => {
   return (
     <div className="p-8 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-6">Terms of Service</h1>
 
       <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
       <p className="mb-6">
-        Welcome to <strong>[PARAZONE]</strong>'s Price Comparator for
-        Parapharmacy Products (the "Service"). These Terms of Service ("TOS")
-        govern your use of our website and services. By accessing or using our
-        Service, you agree to comply with and be bound by these terms.
+        Welcome to <strong>[PARAZONE]</strong>&apos;s Price Comparator for
+        Parapharmacy Products (the &quot;Service&quot;). These Terms of Service
+        (&quot;TOS&quot;) govern your use of our website and services. By
+        accessing or using our Service, you agree to comply with and be bound by
+        these terms.
       </p>
 
       <h2 className="text-2xl font-semibold mb-4">2. Acceptance of Terms</h2>
@@ -74,9 +75,9 @@ const termsOfServicePage = () => {
       </h2>
       <h3 className="text-xl font-semibold mb-2">6.1 Disclaimers</h3>
       <p className="mb-6">
-        The Service is provided "as is" and "as available" without warranties of
-        any kind, either express or implied. We do not warrant that the Service
-        will be uninterrupted or error-free.
+        The Service is provided &quot;as is&quot; and &quot;as available&quot;
+        without warranties of any kind, either express or implied. We do not
+        warrant that the Service will be uninterrupted or error-free.
       </p>
 
       <h2 className="text-2xl font-semibold mb-4">7. Indemnification</h2>
@@ -84,8 +85,8 @@ const termsOfServicePage = () => {
         You agree to indemnify and hold <strong>[PARAZONE]</strong>, its
         affiliates, and their respective officers, directors, employees, and
         agents harmless from any claims, liabilities, damages, losses, and
-        expenses, including reasonable attorneys' fees, arising out of or in any
-        way connected with your access to or use of the Service.
+        expenses, including reasonable attorneys&apos; fees, arising out of or
+        in any way connected with your access to or use of the Service.
       </p>
 
       <h2 className="text-2xl font-semibold mb-4">
