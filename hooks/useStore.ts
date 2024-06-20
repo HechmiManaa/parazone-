@@ -19,7 +19,7 @@ export const useStoreStore = create<StoreStore>((set) => ({
   Stores: [],
   fetchStores: async () => {
     try {
-      const response = await axios.get("https://parazone.tn/api/store");
+      const response = await axios.get("http://localhost:3000/api/store");
       set({ Stores: response.data.data });
     } catch (error) {
       console.error("Error fetching Stores:", error);
