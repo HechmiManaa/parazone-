@@ -5,7 +5,7 @@ import axios from "axios";
 export interface Category {
   id: number;
   name: string;
-  slug?: string | null;
+  slug: string;
   description?: string | null | undefined;
   img: string;
   parent_id?: number | null;

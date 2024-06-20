@@ -85,7 +85,9 @@ export default function ProductPage({
   /*fetching the prices by the product id*/
 
   useEffect(() => {
-    const filtered = Prices.filter((price) => price.product_id === product?.id);
+    const filtered = Prices.filter(
+      (price) => String(price.product_id) === product?.id
+    );
     setFilteredPrices(filtered);
   }, [Prices, productSlug]);
 

@@ -65,6 +65,7 @@ export default function Page({
                   img={subCategory.img}
                   name={subCategory.name}
                   id={subCategory.id}
+                  slug={subCategory.slug}
                 />
               </div>
             </Link>
