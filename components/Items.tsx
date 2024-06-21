@@ -10,38 +10,33 @@ interface ItemProps {
 
 const Items: React.FC<ItemProps> = ({ productId, productSlug }) => {
   const { Prices, fetchPrices } = usePricesStore();
-  const [latestPrices, setLatestPrices] = useState<Price[]>([]);
+  const [filteredPrices, setFilteredPrices] = useState<Price[]>([]);
 
   useEffect(() => {
     fetchPrices();
   }, [fetchPrices]);
 
   useEffect(() => {
-    const groupedPrices: { [storeId: string]: Price[] } = {};
+    const getLatestPrices = () => {
+      // Create a map to store the latest prices per store
+      const latestPricesMap = new Map();
 
-    Prices.forEach((price) => {
-      if (!groupedPrices[String(price.store_id)]) {
-        groupedPrices[String(price.store_id)] = [];
-      }
-      groupedPrices[String(price.store_id)].push(price);
-    });
+      const filtered = Prices.filter(
+        (price) => String(price.product_id) === productId
+      );
 
-    const latestPricesArray: Price[] = [];
-
-    Object.keys(groupedPrices).forEach((storeId) => {
-      const pricesForStore = groupedPrices[storeId];
-      const sortedPrices = pricesForStore.sort((a, b) => {
-        return (
-          new Date(b.scraping_time).getTime() -
-          new Date(a.scraping_time).getTime()
-        );
+      filtered.forEach((price) => {
+        const storeId = price.store_id?.id;
+        latestPricesMap.set(storeId, price);
       });
-      if (sortedPrices.length > 0) {
-        latestPricesArray.push(sortedPrices[0]);
-      }
-    });
 
-    setLatestPrices(latestPricesArray);
+      // Convert the map values to an array
+      const latestPrices = Array.from(latestPricesMap.values());
+
+      setFilteredPrices(latestPrices);
+    };
+
+    getLatestPrices();
   }, [Prices, productSlug, productId]);
 
   const LoadNum = 4;
@@ -53,7 +48,7 @@ const Items: React.FC<ItemProps> = ({ productId, productSlug }) => {
       </h1>
 
       <div className="w-full p-4">
-        {latestPrices.length > 0 ? (
+        {filteredPrices.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="table table-zebra">
               <thead>
@@ -67,7 +62,7 @@ const Items: React.FC<ItemProps> = ({ productId, productSlug }) => {
                 </tr>
               </thead>
               <tbody>
-                {latestPrices.map((price) => (
+                {filteredPrices.map((price) => (
                   <tr className="bg-white" key={price.id}>
                     <td>
                       <p className=" text-[9px] w-20 font-semibold lg:text-sm lg:w-full">
