@@ -215,7 +215,7 @@ export default function ProductPage({
         {/* ---------------*/}
 
         {/* Items */}
-        <Items productId={String(product.id)} productSlug={productSlug} />
+        <Items productId={product.id} productSlug={productSlug} />
       </div>
       {/* ---------------*/}
 
