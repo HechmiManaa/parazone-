@@ -1,4 +1,8 @@
-import React from "react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "terms-of-service",
+};
 
 const termsOfServicePage: React.FC = () => {
   return (

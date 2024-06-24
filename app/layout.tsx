@@ -3,14 +3,19 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/Footer";
-import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Parazone",
-  description: "Parazone-TN",
+  title: {
+    default: "Parazone",
+    template: "%s | Parazone",
+  },
+  description:
+    "Parazone est votre comparateur en ligne de produits de parapharmacie. Découvrez et comparez une large gamme de produits de soins, de bien-être et de beauté pour trouver les meilleures offres et promotions disponibles sur les plus grands sites de parapharmacie.",
   robots: "noindex, nofollow",
+  keywords:
+    "parapharmacie, comparateur de prix, soins, beauté, bien-être, promotions, offres, produits de santé",
 };
 
 export default function RootLayout({

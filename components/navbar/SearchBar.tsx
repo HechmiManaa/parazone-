@@ -5,7 +5,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import { Product, useProductStore } from "@/hooks/useProduct";
 import Image from "next/image";
 import Link from "next/link";
-import { useCategoryStore } from "@/hooks/useCategory";
+import { Category, useCategoryStore } from "@/hooks/useCategory";
 import { useRelationStore } from "@/hooks/useRelation";
 
 const SearchBar = () => {
@@ -56,23 +56,57 @@ const SearchBar = () => {
     };
   }, []);
 
-  const getCategoryById = (categoryId: string | null | undefined) =>
-    categories.find((category) => String(category.id) === categoryId);
-
-  const getSlugsForProduct = (productId: string) => {
-    const relation = relations.find((rel) => rel.product_id === productId);
-    if (!relation) return { parentCategorySlug: null, subCategorySlug: null };
-
-    const subCategory = getCategoryById(String(relation.category_id));
-    const parentCategory = subCategory
-      ? getCategoryById(String(subCategory.parent_id))
-      : null;
-
-    return {
-      parentCategorySlug: parentCategory ? parentCategory.slug : null,
-      subCategorySlug: subCategory ? subCategory.slug : null,
-    };
+  // Helper function to find a category by ID
+  const getCategoryById = (categoryId: number) => {
+    return categories.find((category) => category.id === categoryId);
   };
+
+  // Function to get subcategory slug by product ID
+  const getParentCategorySlug = (productId: string) => {
+    const relation = relations.find(
+      (relation) => String(relation.product_id) === productId
+    );
+    if (relation) {
+      const parentCategory = getCategoryById(Number(relation.category_id));
+      return parentCategory ? parentCategory.slug : null;
+    }
+    return null;
+  };
+
+  // Function to get parent category slug by product ID
+  const getSubCategorySlug = (productId: string) => {
+    // Find all relations for the given product ID
+    const productRelations = relations.filter(
+      (relation) => String(relation.product_id) === productId
+    );
+
+    // Iterate over relations to find parent and subcategory
+    let parentCategory = null;
+    let subCategory = null;
+
+    productRelations.forEach((relation) => {
+      const category = getCategoryById(Number(relation.category_id));
+      if (category) {
+        if (category.parent_id === null) {
+          parentCategory = category; // Category with no parent is considered a parent category
+        } else {
+          subCategory = category; // Category with a parent_id is considered a subcategory
+        }
+      }
+    });
+
+    return subCategory ? (subCategory as Category).slug : null;
+  };
+
+  const filteredProductsById = filteredProducts
+    .filter((product) =>
+      relations.some((relation) => relation.product_id === product.id)
+    )
+    .map((product) => ({
+      ...product,
+      parentCategorySlug: getParentCategorySlug(product.id),
+      subCategorySlug: getSubCategorySlug(product.id),
+    }));
 
   return (
     <div ref={searchBarRef} className="relative z-20">
@@ -90,13 +124,11 @@ const SearchBar = () => {
         <div className="absolute bg-white h-64 overflow-y-auto p-4 w-full shadow-2xl mt-2 rounded-lg">
           {filteredProducts.length > 0 ? (
             <div className="flex flex-col justify-center gap-1">
-              {filteredProducts.map((product) => {
-                const { parentCategorySlug, subCategorySlug } =
-                  getSlugsForProduct(product.id);
+              {filteredProductsById.map((product) => {
                 return (
                   <Link
                     key={product.id}
-                    href={`/category/${parentCategorySlug}/${subCategorySlug}/${product.slug}`}
+                    href={`/category/${product.parentCategorySlug}/${product.subCategorySlug}/${product.slug}`}
                     className="cursor-pointer hover:text-blue-500"
                   >
                     <div className="flex items-center gap-2 w-full hover:border-2 rounded-lg transition duration-300 ease-in-out">
