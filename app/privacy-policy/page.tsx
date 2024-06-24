@@ -1,6 +1,9 @@
 // components/PrivacyPolicyPage.tsx
-import React from "react";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "privacy-policy",
+};
 const PrivacyPolicyPage: React.FC = () => {
   return (
     <div className="p-8 max-w-4xl mx-auto">
