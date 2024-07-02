@@ -1,4 +1,4 @@
-import CategoryContent from "@/components/categoryPage/CategoryPage";
+import CategoryPage from "@/components/categoryPage/CategoryPage";
 import { Metadata } from "next";
 
 function capitalizeSlug(slug: string): string {
@@ -23,5 +23,5 @@ export default function Page({
     slug: string;
   };
 }) {
-  return <CategoryContent categorySlug={params.slug} />;
+  return <CategoryPage categorySlug={params.slug} />;
 }
