@@ -11,7 +11,7 @@ const termsOfServicePage: React.FC = () => {
 
       <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
       <p className="mb-6">
-        Welcome to <strong>[PARAZONE]</strong>&apos;s Price Comparator for
+        Welcome to <strong>PARAZONE</strong>&apos;s Price Comparator for
         Parapharmacy Products (the &quot;Service&quot;). These Terms of Service
         (&quot;TOS&quot;) govern your use of our website and services. By
         accessing or using our Service, you agree to comply with and be bound by
@@ -31,7 +31,7 @@ const termsOfServicePage: React.FC = () => {
 
       <h3 className="text-xl font-semibold mb-2">3.2 License</h3>
       <p className="mb-4">
-        <strong>[PARAZONE]</strong> grants you a limited, non-exclusive,
+        <strong>PARAZONE</strong> grants you a limited, non-exclusive,
         non-transferable, and revocable license to use the Service for personal,
         non-commercial purposes.
       </p>
@@ -68,7 +68,7 @@ const termsOfServicePage: React.FC = () => {
       <p className="mb-6">
         All content and materials available on the Service, including text,
         graphics, logos, and software, are the property of{" "}
-        <strong>[PARAZONE]</strong> or its licensors and are protected by
+        <strong>PARAZONE</strong> or its licensors and are protected by
         intellectual property laws. You agree not to reproduce, distribute, or
         create derivative works from any content without our prior written
         consent.
@@ -86,7 +86,7 @@ const termsOfServicePage: React.FC = () => {
 
       <h2 className="text-2xl font-semibold mb-4">7. Indemnification</h2>
       <p className="mb-6">
-        You agree to indemnify and hold <strong>[PARAZONE]</strong>, its
+        You agree to indemnify and hold <strong>PARAZONE</strong>, its
         affiliates, and their respective officers, directors, employees, and
         agents harmless from any claims, liabilities, damages, losses, and
         expenses, including reasonable attorneys&apos; fees, arising out of or
@@ -97,7 +97,7 @@ const termsOfServicePage: React.FC = () => {
         8. Modifications to the Service and Terms
       </h2>
       <p className="mb-6">
-        <strong>[PARAZONE]</strong> reserves the right to modify or discontinue,
+        <strong>PARAZONE</strong> reserves the right to modify or discontinue,
         temporarily or permanently, the Service or any part thereof, with or
         without notice. We also reserve the right to modify these TOS at any
         time. Your continued use of the Service after any such changes
@@ -108,7 +108,7 @@ const termsOfServicePage: React.FC = () => {
       <p className="mb-6">
         These TOS and any disputes arising out of or related to the Service
         shall be governed by and construed in accordance with the laws of{" "}
-        <strong>[TUNISIA]</strong>, without regard to its conflict of law
+        <strong>TUNISIA</strong>, without regard to its conflict of law
         principles.
       </p>
     </div>
