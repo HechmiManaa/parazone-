@@ -1,7 +1,9 @@
+"use client";
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { useStoreStore } from "@/hooks/useStore";
 import { useBrandStore } from "@/hooks/useBrand";
+import InfinitySlider from "./InfinitySlider";
 
 const MoreInfo = () => {
   const { Stores, fetchStores } = useStoreStore();
@@ -59,32 +61,17 @@ const MoreInfo = () => {
         </div>
       </section>
 
-      <section className="bg-blue-100 dark:bg-gray-800 py-12 md:py-20 lg:py-28">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="max-w-2xl mx-auto text-center">
+      <section className=" dark:bg-gray-800 py-12 md:py-20 lg:py-28">
+        <div className="container mx-auto px-2 md:px-6">
+          <div className="mx-auto text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
               Explorez nos marques
             </h2>
             <p className="mt-4 text-lg text-gray-500 dark:text-gray-400">
               Découvrez les marques de confiance qui collaborent avec nous.
             </p>
-            <div className="mt-8 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {Brands.map((brand) => (
-                <div
-                  key={brand.id}
-                  className="bg-white dark:bg-gray-950 rounded-lg shadow-md p-6"
-                >
-                  <div className="flex items-center justify-center mb-4">
-                    <Image
-                      src={brand.logo}
-                      alt={brand.title}
-                      width={250}
-                      height={250}
-                      className=" w-full "
-                    />
-                  </div>
-                </div>
-              ))}
+            <div className="mt-8 flex justify-center items-center overflow-hidden slider">
+              <InfinitySlider slides={Brands} />
             </div>
           </div>
         </div>
