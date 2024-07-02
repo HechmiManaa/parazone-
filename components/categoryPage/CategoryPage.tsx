@@ -6,7 +6,7 @@ import Link from "next/link";
 import SubCategoryBox from "@/components/categoryPage/SubCategoryBox";
 import { useCategoryStore } from "@/hooks/useCategory";
 
-export default function CategoryContent({
+export default function CategoryPage({
   categorySlug,
 }: {
   categorySlug: string;
