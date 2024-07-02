@@ -115,7 +115,7 @@ const SearchBar = () => {
         <input
           type="text"
           placeholder="Recherchez votre produit ici..."
-          className="border-none outline-none flex-grow"
+          className="border-none outline-none flex-grow text-sm"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />

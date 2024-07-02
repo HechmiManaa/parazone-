@@ -4,31 +4,81 @@ import Link from "next/link";
 import Image from "next/image";
 import Categories from "./Categories";
 import SearchBar from "./SearchBar";
+import { LuMenu } from "react-icons/lu";
+import { MdOutlineClose } from "react-icons/md";
 
 import { FaSearch } from "react-icons/fa";
 
 const Navbar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleIconClick = () => {
     setIsSearchOpen(!isSearchOpen);
   };
 
+  const handleMenuClick = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <div className=" shadow-sm">
-      <div className="mx-auto px-4 md:px-10 py-2 flex items-center justify-between">
+      <div className="mx-auto px-4 md:px-10 pt-2 flex items-center justify-between">
         <Link href="/">
           <div className="flex items-center gap-2 text-lg font-semibold">
             <Image
               alt="logo"
               src="/logo.png"
-              className="w-32 lg:w-36"
+              className="w-24 lg:w-28"
               width={500}
-              height={1000}
+              height={500}
             />
           </div>
         </Link>
 
+        <ul className="hidden lg:flex justify-center items-center gap-2 text-sm">
+          <li className="transition p-2 hover:bg-neutral-200 cursor-pointer rounded-lg">
+            Catégories
+          </li>
+          <li className="transition p-2 hover:bg-neutral-200 cursor-pointer rounded-lg">
+            Stores
+          </li>
+          <li className="transition p-2 hover:bg-neutral-200 cursor-pointer rounded-lg">
+            Brands
+          </li>
+        </ul>
+
+        {/*  phone UL */}
+
+        {!isMenuOpen ? (
+          <LuMenu
+            className="lg:hidden text-neutral-700 cursor-pointer"
+            onClick={() => handleMenuClick()}
+            size={25}
+          />
+        ) : (
+          <MdOutlineClose
+            className="lg:hidden text-neutral-700 cursor-pointer"
+            onClick={() => handleMenuClick()}
+            size={25}
+          />
+        )}
+
+        {isMenuOpen && (
+          <ul className="absolute z-50 top-10 left-0 bg-white shadow-xl border-b-8 border-neutral-600  p-2 rounded-b-xl w-[100%] lg:flex justify-center items-center gap-2 text-sm">
+            <li className="transition p-2 hover:bg-neutral-200 cursor-pointer rounded-lg">
+              Catégories
+            </li>
+            <li className="transition p-2 hover:bg-neutral-200 cursor-pointer rounded-lg">
+              Stores
+            </li>
+            <li className="transition p-2 hover:bg-neutral-200 cursor-pointer rounded-lg">
+              Brands
+            </li>
+          </ul>
+        )}
+
+        {/*
         <div className="hidden lg:block w-[70%] ">
           <SearchBar />
         </div>
@@ -40,15 +90,16 @@ const Navbar = () => {
             size={20}
           />
         </div>
+        */}
       </div>
-
+      {/*
       {isSearchOpen && (
         <div className="lg:hidden m-2">
           <SearchBar />
         </div>
-      )}
+      )}*/}
 
-      <div className="w-full blue-background pt-2">
+      <div className="w-full  pt-2">
         <Categories />
       </div>
     </div>

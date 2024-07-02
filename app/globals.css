@@ -127,3 +127,69 @@
 .green {
   color: var(--cyann);
 }
+
+/*  slider    */
+
+.slider-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 10;
+  padding: 0 50px; /* Adjust padding for the white containers */
+  background-color: white; /* Ensure the containers are white */
+}
+
+/* Add shadows before and after the slider */
+.slider-wrapper::before,
+.slider-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 50px; /* Width of the shadow area */
+  height: 100%;
+  background: linear-gradient(
+    to left,
+    transparent,
+    rgb(255, 255, 255)
+  ); /* Gradient for shadow effect */
+  z-index: 9; /* Ensure shadows are behind the slider */
+  pointer-events: none; /* Prevent shadows from blocking clicks */
+}
+
+.slider-wrapper::before {
+  left: 0;
+}
+
+.slider-wrapper::after {
+  right: 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgb(255, 255, 255)
+  ); /* Reverse gradient for the right side */
+}
+
+.slider-container {
+  display: flex;
+  width: calc(250px * 72); /* Original items (36) + Duplicates (36) */
+  animation: scroll 100s linear infinite;
+}
+
+.slider-track {
+  display: flex;
+}
+
+.slider-track > * {
+  flex: 0 0 250px;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
