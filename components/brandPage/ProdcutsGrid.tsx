@@ -3,62 +3,45 @@
 import { useEffect, useMemo, useState } from "react";
 import { useProductStore } from "@/hooks/useProduct"; // Adjust the import path
 import { ProductCard } from "@/components/ProductCard";
-import { useCategoryStore } from "@/hooks/useCategory";
-import { useRelationStore } from "@/hooks/useRelation";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useBrandStore } from "@/hooks/useBrand";
 
-export default function ProductsPageByCategory({
-  categorySlug,
+export default function ProductsPageByBrand({
+  brandSlug,
 }: {
-  categorySlug: string;
+  brandSlug: string;
 }) {
   const { products, fetchProducts } = useProductStore();
-  const { categories, fetchCategories } = useCategoryStore();
-  const { relations, fetchRelations } = useRelationStore();
-
-  const pathname = usePathname();
-  const parts = pathname.split("/");
-  const parentCategory = parts[2];
+  const { Brands, fetchBrands } = useBrandStore();
 
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 12;
 
   useEffect(() => {
     fetchProducts();
-    fetchCategories();
-    fetchRelations();
-  }, [fetchProducts, fetchCategories, fetchRelations]);
+    fetchBrands();
+  }, [fetchProducts, fetchBrands]);
 
-  const category = useMemo(
-    () => categories.find((category) => category.slug === categorySlug),
-    [categorySlug, categories]
+  const brand = useMemo(
+    () => Brands.find((brand) => brand.slug_title === brandSlug),
+    [brandSlug, Brands]
   );
 
-  const productIds = useMemo(
+  const brandProducts = useMemo(
     () =>
-      relations
-        .filter(
-          (relation) => String(relation.category_id) === String(category?.id)
-        )
-        .map((relation) => relation.product_id),
-    [relations, category?.id]
+      products.filter((product) => product.brand_id?.slug_title === brandSlug),
+    [products]
   );
 
-  const categoryProducts = useMemo(
-    () => products.filter((product) => productIds.includes(product.id)),
-    [products, productIds]
-  );
-
-  const totalPages = Math.ceil(categoryProducts.length / productsPerPage);
+  const totalPages = Math.ceil(brandProducts.length / productsPerPage);
 
   const paginatedProducts = useMemo(
     () =>
-      categoryProducts.slice(
+      brandProducts.slice(
         (currentPage - 1) * productsPerPage,
         currentPage * productsPerPage
       ),
-    [categoryProducts, currentPage, productsPerPage]
+    [brandProducts, currentPage, productsPerPage]
   );
 
   const handlePageChange = (newPage: number) => {
@@ -70,16 +53,14 @@ export default function ProductsPageByCategory({
   return (
     <div className="w-full mx-auto py-12 bg-gray-100">
       <h1 className="text-2xl ml-4 lg:ml-10 font-bold mb-8 capitalize">
-        {category?.name || "Category"}
+        {brand?.title}
       </h1>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8 mx-2 lg:mx-10">
         {paginatedProducts.length > 0 ? (
           paginatedProducts.map((product) => (
             <div key={product.id}>
-              <Link
-                href={`/category/${parentCategory}/${category?.slug}/${product?.slug}`}
-              >
+              <Link href={`/brands/${brand?.slug_title}/${product?.slug}`}>
                 <ProductCard
                   title={product.title}
                   product_img={product.product_img}
@@ -91,7 +72,7 @@ export default function ProductsPageByCategory({
           ))
         ) : (
           <div className="text-center text-lg py-44">
-            Aucun produit disponible pour la catégorie {category?.name}
+            Aucun produit disponible pour la catégorie {brand?.title}
           </div>
         )}
       </div>

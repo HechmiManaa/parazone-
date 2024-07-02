@@ -3,19 +3,11 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Categories from "./Categories";
-import SearchBar from "./SearchBar";
 import { LuMenu } from "react-icons/lu";
 import { MdOutlineClose } from "react-icons/md";
 
-import { FaSearch } from "react-icons/fa";
-
 const Navbar = () => {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const handleIconClick = () => {
-    setIsSearchOpen(!isSearchOpen);
-  };
 
   const handleMenuClick = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -41,10 +33,10 @@ const Navbar = () => {
             Catégories
           </li>
           <li className="transition p-2 hover:bg-neutral-200 cursor-pointer rounded-lg">
-            Stores
+            <Link href="/stores">Stores</Link>
           </li>
           <li className="transition p-2 hover:bg-neutral-200 cursor-pointer rounded-lg">
-            Brands
+            <Link href="/brands">Brands</Link>
           </li>
         </ul>
 
@@ -69,11 +61,13 @@ const Navbar = () => {
             <li className="transition p-2 hover:bg-neutral-200 cursor-pointer rounded-lg">
               Catégories
             </li>
+
             <li className="transition p-2 hover:bg-neutral-200 cursor-pointer rounded-lg">
-              Stores
+              <Link href="/stores">Stores</Link>
             </li>
+
             <li className="transition p-2 hover:bg-neutral-200 cursor-pointer rounded-lg">
-              Brands
+              <Link href="/brands">Brands</Link>
             </li>
           </ul>
         )}
