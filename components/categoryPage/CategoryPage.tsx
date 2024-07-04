@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import SubCategoryBox from "@/components/categoryPage/SubCategoryBox";
 import { useCategoryStore } from "@/hooks/useCategory";
+import Image from "next/image";
 
 export default function CategoryPage({
   categorySlug,
@@ -41,10 +42,12 @@ export default function CategoryPage({
         <div>
           {parentCategory?.img && (
             <div>
-              <img
+              <Image
                 src={parentCategory.img}
                 alt={parentCategory.name}
                 className="w-[80%] h-full object-cover m-10"
+                width={500}
+                height={500}
               />
             </div>
           )}
