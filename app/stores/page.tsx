@@ -3,12 +3,13 @@ import { useStoreStore } from "@/hooks/useStore";
 import Image from "next/image";
 import { useEffect } from "react";
 
-const storesPage = () => {
+const StoresPage = () => {
   const { Stores, fetchStores } = useStoreStore();
 
   useEffect(() => {
     fetchStores();
   }, [fetchStores]);
+
   return (
     <div className="flex flex-wrap justify-center gap-4">
       {Stores.map((store) => (
@@ -43,7 +44,7 @@ const storesPage = () => {
               rel="noopener noreferrer"
               className="hover:underline font-bold"
             >
-              voir les produits
+              Voir les produits
             </a>
           </div>
         </div>
@@ -52,4 +53,4 @@ const storesPage = () => {
   );
 };
 
-export default storesPage;
+export default StoresPage;
