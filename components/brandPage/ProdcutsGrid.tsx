@@ -51,7 +51,7 @@ export default function ProductsPageByBrand({
   };
 
   return (
-    <div className="w-full mx-auto py-12 bg-gray-100">
+    <div className="w-full mx-auto pb-52 py-10 bg-gray-100">
       <h1 className="text-2xl ml-4 lg:ml-10 font-bold mb-8 capitalize">
         {brand?.title}
       </h1>
@@ -71,9 +71,9 @@ export default function ProductsPageByBrand({
             </div>
           ))
         ) : (
-          <div className="text-center text-lg py-44">
-            Aucun produit disponible pour la catégorie {brand?.title}
-          </div>
+          <p className="text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-lg py-20">
+            Aucun produit disponible pour la Marque {brand?.title}
+          </p>
         )}
       </div>
 

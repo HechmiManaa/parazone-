@@ -43,7 +43,7 @@ export async function middleware(req: NextRequest) {
   if (req.nextUrl.pathname.startsWith("/api/category")) {
     try {
       const response = await axios.get(
-        "https://admin.parazone.tn/items/category"
+        "https://admin.parazone.tn/items/category?limit=-1"
       );
       return NextResponse.json(response.data);
     } catch (error) {
@@ -57,7 +57,7 @@ export async function middleware(req: NextRequest) {
   if (req.nextUrl.pathname.startsWith("/api/product")) {
     try {
       const response = await axios.get(
-        "https://admin.parazone.tn/items/product?fields=brand_id.*,store_id.*,*"
+        "https://admin.parazone.tn/items/product?fields=brand_id.*,store_id.*,*,limit=-1"
       );
       return NextResponse.json(response.data);
     } catch (error) {
@@ -71,7 +71,7 @@ export async function middleware(req: NextRequest) {
   if (req.nextUrl.pathname.startsWith("/api/price")) {
     try {
       const response = await axios.get(
-        "https://admin.parazone.tn/items/price?fields=store_id.*,*"
+        "https://admin.parazone.tn/items/price?fields=store_id.*,*,limit=-1"
       );
       return NextResponse.json(response.data);
     } catch (error) {
@@ -85,7 +85,7 @@ export async function middleware(req: NextRequest) {
   if (req.nextUrl.pathname.startsWith("/api/relation")) {
     try {
       const response = await axios.get(
-        "https://admin.parazone.tn/items/relation"
+        "https://admin.parazone.tn/items/relation?limit=-1"
       );
       return NextResponse.json(response.data);
     } catch (error) {
@@ -98,7 +98,9 @@ export async function middleware(req: NextRequest) {
 
   if (req.nextUrl.pathname.startsWith("/api/brand")) {
     try {
-      const response = await axios.get("https://admin.parazone.tn/items/brand");
+      const response = await axios.get(
+        "https://admin.parazone.tn/items/brand?limit=-1"
+      );
       return NextResponse.json(response.data);
     } catch (error) {
       return NextResponse.json(
@@ -110,7 +112,9 @@ export async function middleware(req: NextRequest) {
 
   if (req.nextUrl.pathname.startsWith("/api/store")) {
     try {
-      const response = await axios.get("https://admin.parazone.tn/items/store");
+      const response = await axios.get(
+        "https://admin.parazone.tn/items/store?limit=-1"
+      );
       return NextResponse.json(response.data);
     } catch (error) {
       return NextResponse.json(

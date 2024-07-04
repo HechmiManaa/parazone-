@@ -6,7 +6,7 @@ import { useRelationStore } from "@/hooks/useRelation";
 import { Category, useCategoryStore } from "@/hooks/useCategory";
 import Link from "next/link";
 
-export const RelatedProducts = () => {
+export const LatestProducts = () => {
   const { products, fetchProducts } = useProductStore();
   const { relations, fetchRelations } = useRelationStore();
   const { categories, fetchCategories } = useCategoryStore();
@@ -77,7 +77,7 @@ export const RelatedProducts = () => {
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8 mx-2 lg:mx-10">
           {filteredProducts
-            .slice(0, 6)
+            .slice(-6)
             .reverse()
             .map((product) => (
               <Link

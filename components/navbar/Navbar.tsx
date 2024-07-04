@@ -33,10 +33,10 @@ const Navbar = () => {
             Catégories
           </li>
           <li className="transition p-2 hover:bg-neutral-200 cursor-pointer rounded-lg">
-            <Link href="/stores">Stores</Link>
+            <Link href="/stores">Magasins</Link>
           </li>
           <li className="transition p-2 hover:bg-neutral-200 cursor-pointer rounded-lg">
-            <Link href="/brands">Brands</Link>
+            <Link href="/brands">Marques</Link>
           </li>
         </ul>
 
@@ -63,11 +63,11 @@ const Navbar = () => {
             </li>
 
             <li className="transition p-2 hover:bg-neutral-200 cursor-pointer rounded-lg">
-              <Link href="/stores">Stores</Link>
+              <Link href="/stores">Magasins</Link>
             </li>
 
             <li className="transition p-2 hover:bg-neutral-200 cursor-pointer rounded-lg">
-              <Link href="/brands">Brands</Link>
+              <Link href="/brands">Marques</Link>
             </li>
           </ul>
         )}

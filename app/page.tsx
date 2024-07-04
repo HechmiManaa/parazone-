@@ -1,14 +1,14 @@
 "use client";
 
 import Hero from "@/components/landingPage/Hero";
-import { RelatedProducts } from "@/components/landingPage/RelatedProducts";
+import { LatestProducts } from "@/components/landingPage/LatestProducts";
 import MoreInfo from "@/components/landingPage/MoreInfo";
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <RelatedProducts />
+      <LatestProducts />
       <MoreInfo />
     </>
   );
