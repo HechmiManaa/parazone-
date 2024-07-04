@@ -20,7 +20,7 @@ const BrandRelatedProducts: React.FC<BrandRelatedProductsProps> = ({
   // Filter products based on the related product IDs
   const relatedProduct = useMemo(
     () => products.filter((product) => product.brand_id?.id === brandId),
-    [products]
+    [products, brandId]
   );
 
   return (

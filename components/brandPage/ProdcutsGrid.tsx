@@ -30,7 +30,7 @@ export default function ProductsPageByBrand({
   const brandProducts = useMemo(
     () =>
       products.filter((product) => product.brand_id?.slug_title === brandSlug),
-    [products]
+    [products, brandSlug]
   );
 
   const totalPages = Math.ceil(brandProducts.length / productsPerPage);

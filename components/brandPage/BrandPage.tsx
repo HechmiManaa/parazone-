@@ -20,10 +20,9 @@ const BrandsPage = () => {
     const counts: Record<string, number> = {};
     products.forEach((product) => {
       const brandId = product.brand_id?.id.toString();
-      if (brandId && !counts[brandId]) {
-        counts[brandId] = 0;
+      if (brandId) {
+        counts[brandId] = (counts[brandId] || 0) + 1;
       }
-      counts[brandId!]++;
     });
     return counts;
   }, [products]);
@@ -34,11 +33,8 @@ const BrandsPage = () => {
         (brand) =>
           brand.slug_title &&
           brand.logo !== "URL du logo de la marque non trouvé" && (
-            <Link href={`/brands/${brand.slug_title}`}>
-              <div
-                key={brand.id}
-                className="cursor-pointer  bg-white hover:bg-gray-100 dark:bg-gray-950 rounded-lg shadow-md p-6 w-56 text-center flex flex-col items-center justify-between"
-              >
+            <Link href={`/brands/${brand.slug_title}`} key={brand.id}>
+              <div className="cursor-pointer  bg-white hover:bg-gray-100 dark:bg-gray-950 rounded-lg shadow-md p-6 w-56 text-center flex flex-col items-center justify-between">
                 <div className="flex items-center justify-center mb-4">
                   <Image
                     src={brand.logo}
