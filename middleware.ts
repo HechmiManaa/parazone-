@@ -57,7 +57,7 @@ export async function middleware(req: NextRequest) {
   if (req.nextUrl.pathname.startsWith("/api/product")) {
     try {
       const response = await axios.get(
-        "https://admin.parazone.tn/items/product?fields=brand_id.*,store_id.*,*,limit=-1"
+        "https://admin.parazone.tn/items/product?fields=brand_id.*,store_id.*,*&limit=-1"
       );
       return NextResponse.json(response.data);
     } catch (error) {
@@ -71,7 +71,7 @@ export async function middleware(req: NextRequest) {
   if (req.nextUrl.pathname.startsWith("/api/price")) {
     try {
       const response = await axios.get(
-        "https://admin.parazone.tn/items/price?fields=store_id.*,*,limit=-1"
+        "https://admin.parazone.tn/items/price?fields=store_id.*,*&limit=-1"
       );
       return NextResponse.json(response.data);
     } catch (error) {
