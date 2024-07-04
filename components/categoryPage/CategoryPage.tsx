@@ -1,5 +1,3 @@
-// components/CategoryContent.tsx
-
 "use client";
 import React, { useEffect } from "react";
 import Link from "next/link";
@@ -40,17 +38,18 @@ export default function CategoryPage({
           ></div>
         </div>
         <div>
-          {parentCategory?.img && (
-            <div>
-              <Image
-                src={parentCategory.img}
-                alt={parentCategory.name}
-                className="w-[80%] h-full object-cover m-10"
-                width={500}
-                height={500}
-              />
-            </div>
-          )}
+          {parentCategory?.img &&
+            parentCategory?.img !== "URL de l'image de la catégorie" && (
+              <div>
+                <Image
+                  src={parentCategory.img}
+                  alt={parentCategory.name}
+                  className="w-[80%] h-full object-cover m-10"
+                  width={500}
+                  height={500}
+                />
+              </div>
+            )}
         </div>
       </div>
 

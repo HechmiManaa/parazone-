@@ -11,7 +11,7 @@ const StoresPage = () => {
   }, [fetchStores]);
 
   return (
-    <div className="flex flex-wrap justify-center gap-4">
+    <div className="flex flex-wrap justify-center gap-4 py-10">
       {Stores.map((store) => (
         <div
           key={store.id}
@@ -35,16 +35,6 @@ const StoresPage = () => {
               className="hover:underline font-bold"
             >
               Visiter le magasin
-            </a>
-          </div>
-          <div className="text-sm text-gray-500 dark:text-gray-400">
-            <a
-              href={store.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline font-bold"
-            >
-              Voir les produits
             </a>
           </div>
         </div>

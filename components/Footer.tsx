@@ -10,14 +10,20 @@ const Footer = () => {
           <span className="text-lg font-semibold ml-2">Parazone</span>
         </div>
         <nav className="flex items-center gap-4">
-          <Link className="text-sm hover:underline" href="/privacy-policy">
-            Privacy Policy
+          <Link
+            className="text-sm hover:underline"
+            href="/politique-de-confidentialite"
+          >
+            politique de confidentialité
           </Link>
-          <Link className="text-sm hover:underline" href="/terms-of-service">
-            Terms of Service
+          <Link
+            className="text-sm hover:underline"
+            href="/conditions-dutilisation"
+          >
+            Conditions d'utilisation
           </Link>
-          <Link className="text-sm hover:underline" href="/contact-us">
-            Contact Us
+          <Link className="text-sm hover:underline" href="/contactez-nous">
+            Contactez-nous
           </Link>
         </nav>
       </div>

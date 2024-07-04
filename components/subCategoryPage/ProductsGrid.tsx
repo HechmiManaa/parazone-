@@ -22,7 +22,7 @@ export default function ProductsPageByCategory({
   const parentCategory = parts[2];
 
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 12;
+  const productsPerPage = 24;
 
   useEffect(() => {
     fetchProducts();

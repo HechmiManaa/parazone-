@@ -33,7 +33,7 @@ const BrandsPage = () => {
         (brand) =>
           brand.slug_title &&
           brand.logo !== "URL du logo de la marque non trouvé" && (
-            <Link href={`/brands/${brand.slug_title}`} key={brand.id}>
+            <Link href={`/marques/${brand.slug_title}`} key={brand.id}>
               <div className="cursor-pointer  bg-white hover:bg-gray-100 dark:bg-gray-950 rounded-lg shadow-md p-6 w-56 text-center flex flex-col items-center justify-between">
                 <div className="flex items-center justify-center mb-4">
                   <Image

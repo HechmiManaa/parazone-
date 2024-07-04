@@ -67,7 +67,7 @@ const MoreInfo = () => {
       <section className=" dark:bg-gray-800 py-12 md:py-20 lg:py-28">
         <div className="container mx-auto px-2 md:px-6">
           <div className="mx-auto text-center">
-            <Link href="/brands">
+            <Link href="/marques">
               <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
                 Explorez nos marques
               </h2>
