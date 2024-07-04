@@ -20,7 +20,7 @@ const Footer = () => {
             className="text-sm hover:underline"
             href="/conditions-dutilisation"
           >
-            Conditions d'utilisation
+            Conditions d&apos;utilisation
           </Link>
           <Link className="text-sm hover:underline" href="/contactez-nous">
             Contactez-nous
