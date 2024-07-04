@@ -1,11 +1,8 @@
 "use client";
 import { Product, useProductStore } from "@/hooks/useProduct";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Price, usePricesStore } from "@/hooks/usePrice";
-import { useCategoryStore } from "@/hooks/useCategory";
-import { usePathname } from "next/navigation";
-import { useRelationStore } from "@/hooks/useRelation";
 import Items from "@/components/productPage/Items";
 import BrandRelatedProducts from "@/components/brandPage/BrandRelatedProducts";
 
@@ -21,24 +18,6 @@ export default function BrandProductPage({
 
   const { products, fetchProducts } = useProductStore();
   const { Prices, fetchPrices } = usePricesStore();
-  const { categories, fetchCategories } = useCategoryStore();
-
-  const { relations, fetchRelations } = useRelationStore();
-  const pathname = usePathname();
-
-  // pathname will be like "/category/visage/paux-grasses"
-  const parts = pathname.split("/");
-  const parentCategory_slug = parts[2];
-  const subCategory_slug = parts[3];
-
-  const subCategory = useMemo(
-    () => categories.find((category) => category.slug === subCategory_slug),
-    [subCategory_slug, categories]
-  );
-
-  useEffect(() => {
-    fetchCategories();
-  }, [fetchCategories]);
 
   /*fetching the product by the Slug in the params*/
   useEffect(() => {
@@ -73,12 +52,6 @@ export default function BrandProductPage({
   useEffect(() => {
     fetchPrices();
   }, [fetchPrices]);
-
-  useEffect(() => {
-    fetchRelations();
-  }, [fetchRelations]);
-
-  /*fetching the prices by the product id*/
 
   useEffect(() => {
     const filtered = Prices.filter(
@@ -151,15 +124,6 @@ export default function BrandProductPage({
                 <div className="text-sm text-gray-700">
                   Référence:{" "}
                   <span className="blue font-semibold">{product?.id}</span>
-                </div>
-              </div>
-
-              <div className="py-2">
-                <div className="text-sm text-gray-700">
-                  Category:{" "}
-                  <span className="blue font-semibold">
-                    {subCategory?.name}
-                  </span>
                 </div>
               </div>
             </div>

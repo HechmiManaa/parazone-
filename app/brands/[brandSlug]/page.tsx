@@ -10,10 +10,10 @@ function capitalizeSlug(slug: string): string {
 export async function generateMetadata({
   params,
 }: {
-  params: { subSlug: string };
+  params: { brandSlug: string };
 }): Promise<Metadata> {
   return {
-    title: capitalizeSlug(params.subSlug), // Capitalize the slug for the title
+    title: capitalizeSlug(params.brandSlug), // Capitalize the slug for the title
   };
 }
 

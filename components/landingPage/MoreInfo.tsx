@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useStoreStore } from "@/hooks/useStore";
 import { useBrandStore } from "@/hooks/useBrand";
 import InfinitySlider from "./InfinitySlider";
+import Link from "next/link";
 
 const MoreInfo = () => {
   const { Stores, fetchStores } = useStoreStore();
@@ -19,9 +20,11 @@ const MoreInfo = () => {
       <section className="py-12 md:py-20 lg:py-28">
         <div className="container mx-auto px-4 md:px-2">
           <div className="text-center mb-12">
-            <h2 className="text-xl font-extrabold tracking-tight text-gray-800 dark:text-gray-100 sm:text-4xl md:text-5xl lg:text-4xl leading-tight">
-              Explorez nos magasins
-            </h2>
+            <Link href="/stores">
+              <h2 className="text-xl font-extrabold tracking-tight text-gray-800 dark:text-gray-100 sm:text-4xl md:text-5xl lg:text-4xl leading-tight">
+                Explorez nos magasins
+              </h2>
+            </Link>
             <p className="mt-4 text-lg text-gray-500 dark:text-gray-400">
               Découvrez les marques de confiance qui collaborent avec nous et
               explorez les meilleurs magasins disponibles.
@@ -64,9 +67,11 @@ const MoreInfo = () => {
       <section className=" dark:bg-gray-800 py-12 md:py-20 lg:py-28">
         <div className="container mx-auto px-2 md:px-6">
           <div className="mx-auto text-center">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-              Explorez nos marques
-            </h2>
+            <Link href="/brands">
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+                Explorez nos marques
+              </h2>
+            </Link>
             <p className="mt-4 text-lg text-gray-500 dark:text-gray-400">
               Découvrez les marques de confiance qui collaborent avec nous.
             </p>

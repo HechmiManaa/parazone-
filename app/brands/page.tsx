@@ -3,7 +3,7 @@ import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: "Brands", // Capitalize the slug for the title
+    title: "Marques", // Capitalize the slug for the title
   };
 }
 export default function Page({}) {
