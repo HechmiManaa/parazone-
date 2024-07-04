@@ -34,7 +34,7 @@ const BrandRelatedProducts: React.FC<BrandRelatedProductsProps> = ({
           .slice(0, 4)
           .map((relatedProduct, index) => (
             <Link
-              href={`/brands/${relatedProduct.brand_id?.slug_title}/${relatedProduct?.slug}`}
+              href={`/marques/${relatedProduct.brand_id?.slug_title}/${relatedProduct?.slug}`}
               key={index}
               className="block border-b border-gray-300 pb-3 mb-3 last:border-0 last:pb-0 hover:bg-gray-200 transition-colors rounded-lg p-2"
             >

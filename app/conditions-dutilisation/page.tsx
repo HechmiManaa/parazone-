@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "terms-of-service",
+  title: "Conditions d'utilisation",
 };
 
 const termsOfServicePage: React.FC = () => {

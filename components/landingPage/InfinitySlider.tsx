@@ -13,18 +13,20 @@ const InfinitySlider: React.FC<SlideProps> = ({ slides }) => {
       <div className="slider-container">
         <div className="slider-track">
           {slides.concat(slides).map((brand, index) => (
-            <div className="slide" key={index}>
+            <div key={index}>
               {brand.slug_title &&
                 brand.logo !== "URL du logo de la marque non trouvé" && (
-                  <div className="p-2">
-                    <div className="flex items-center justify-center h-20 w-40 mb-4">
-                      <Image
-                        src={brand.logo}
-                        alt={brand.logo}
-                        width={250}
-                        height={250}
-                        className="w-28"
-                      />
+                  <div className="slide">
+                    <div className="p-2">
+                      <div className="flex items-center justify-center h-20 w-40 mb-4">
+                        <Image
+                          src={brand.logo}
+                          alt={brand.logo}
+                          width={250}
+                          height={250}
+                          className="w-28"
+                        />
+                      </div>
                     </div>
                   </div>
                 )}

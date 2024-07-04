@@ -15,7 +15,7 @@ export default function ProductsPageByBrand({
   const { Brands, fetchBrands } = useBrandStore();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 12;
+  const productsPerPage = 24;
 
   useEffect(() => {
     fetchProducts();
@@ -60,7 +60,7 @@ export default function ProductsPageByBrand({
         {paginatedProducts.length > 0 ? (
           paginatedProducts.map((product) => (
             <div key={product.id}>
-              <Link href={`/brands/${brand?.slug_title}/${product?.slug}`}>
+              <Link href={`/marques/${brand?.slug_title}/${product?.slug}`}>
                 <ProductCard
                   title={product.title}
                   product_img={product.product_img}

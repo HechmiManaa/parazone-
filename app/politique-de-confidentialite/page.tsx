@@ -2,7 +2,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "privacy-policy",
+  title: "politique de confidentialité",
 };
 const PrivacyPolicyPage: React.FC = () => {
   return (

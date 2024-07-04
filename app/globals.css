@@ -182,7 +182,7 @@
 }
 
 .slider-track > * {
-  flex: 0 0 250px;
+  flex: 100 0 235px;
 }
 
 @keyframes scroll {
