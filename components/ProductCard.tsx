@@ -22,14 +22,18 @@ export function ProductCard({
           src={`${product_img}`}
           width={500}
           height={500}
-          className=" object-cover rounded-full w-full h-20 lg:h-32 "
+          className=" object-cover rounded-full w-full h-28 lg:h-32 mt-4"
         />
       </figure>
       <div className="p-2 ">
         <h2 className=" text-[10px] lg:text-xs mb-12">{title}</h2>
 
         <div className="card-actions justify-end absolute bottom-5">
-          <div className="badge badge-outline text-xs text-[8px]">
+          <div
+            className={`${
+              !brand_id?.title ? "" : "badge badge-outline"
+            } text-xs text-[8px]`}
+          >
             {brand_id?.title}
           </div>
         </div>
