@@ -13,10 +13,10 @@ const BlogsPage = () => {
 
   return (
     <div className="min-h-screen">
-      <div className="grid grid-cols-2 lg:grid-cols-4  items-center gap-4 p-4 my-4 mx-6 ">
+      <div className="grid grid-cols-2 lg:grid-cols-4  items-center gap-4 lg:p-4 my-4 mx-2 lg:mx-6  ">
         {Blogs.map((blog) => (
           <Link href={`/blog/${blog.slug}`} key={blog.id}>
-            <div className="p-4  cursor-pointer">
+            <div className="p-4  cursor-pointer h-64 lg:h-full">
               <div className="">
                 <Image
                   src={`https://admin.parazone.tn/assets/${blog.image}`}
