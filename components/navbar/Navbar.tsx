@@ -30,7 +30,7 @@ const Navbar = () => {
 
         <ul className="hidden lg:flex justify-center items-center gap-2 text-sm">
           <li className="transition p-2 hover:bg-neutral-200 cursor-pointer rounded-lg">
-            <Link href="/blog">Blog</Link>
+            <Link href="/blog">Blogs</Link>
           </li>
           <li className="transition p-2 hover:bg-neutral-200 cursor-pointer rounded-lg">
             <Link href="/magasins">Magasins</Link>
@@ -59,7 +59,7 @@ const Navbar = () => {
         {isMenuOpen && (
           <ul className="absolute z-50 top-10 left-0 bg-white shadow-xl border-b-8 border-neutral-600  p-2 rounded-b-xl w-[100%] lg:flex justify-center items-center gap-2 text-sm">
             <li className="transition p-2 hover:bg-neutral-200 cursor-pointer rounded-lg">
-              <Link href="/blog">Blog</Link>
+              <Link href="/blog">Blogs</Link>
             </li>
             <li className="transition p-2 hover:bg-neutral-200 cursor-pointer rounded-lg">
               <Link href="/magasins">Magasins</Link>
