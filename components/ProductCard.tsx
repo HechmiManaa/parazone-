@@ -1,10 +1,10 @@
 import Image from "next/image";
-import { brand, store } from "@/hooks/useProduct";
+import { Brand } from "@/hooks/useBrand";
 
 export interface ProductCardProps {
   title: string;
   product_img: string;
-  brand_id?: brand;
+  brand_id?: Brand;
   new: boolean;
 }
 
