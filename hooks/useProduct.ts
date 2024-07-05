@@ -1,21 +1,8 @@
 // useProductStore.ts
 import { create } from "zustand";
 import axios from "axios";
-
-export interface brand {
-  id: number;
-  title: string;
-  slug_title: string;
-  logo: string;
-}
-
-export interface store {
-  id: number;
-  title: string;
-  slug_title: string;
-  url: string;
-  logo: string;
-}
+import { Brand } from "./useBrand";
+import { Store } from "./useStore";
 
 export interface Product {
   id: string;
@@ -24,8 +11,8 @@ export interface Product {
   long_description: string;
   short_description: string;
   product_img: string;
-  brand_id?: brand;
-  store_id?: store;
+  brand_id?: Brand;
+  store_id?: Store;
 }
 
 interface ProductStore {
