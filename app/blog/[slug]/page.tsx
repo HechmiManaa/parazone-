@@ -75,7 +75,7 @@ const Article = ({
   const formattedDate = createdDate.toISOString().split("T")[0];
 
   return (
-    <div className="container mx-auto py-8 font-sans shadow-lg m-4 rounded-xl">
+    <div className="container max-w-5xl mx-auto py-8 font-sans  m-4 rounded-xl">
       <h1 className="text-2xl lg:text-3xl font-bold mb-2">
         {filteredBlog.title}
       </h1>
