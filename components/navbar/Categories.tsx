@@ -37,7 +37,7 @@ export default function CategoriesPage() {
           <SearchBar />
         </div>
       </div>
-      <div className=" green-background flex justify-center gap-2 items-center py-2 overflow-auto mx-1 md:mx-20 w-full ">
+      <div className="green-background flex justify-between lg:justify-center gap-2 items-center py-2 overflow-auto mx-2 md:mx-20 w-full">
         {parentCategories.map((parentCategory) => (
           <div
             key={parentCategory.id}

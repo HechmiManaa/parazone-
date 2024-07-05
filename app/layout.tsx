@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={inter.className}>
-        <main className="max-w10xl mx-auto">
+        <main className="max-w10xl mx-auto font-sans">
           <Navbar />
           {children}
           <Footer />
