@@ -7,5 +7,9 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 export default function Page({}) {
-  return <BrandsPage />;
+  return (
+    <div className="min-h-screen">
+      <BrandsPage />
+    </div>
+  );
 }
