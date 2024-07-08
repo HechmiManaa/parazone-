@@ -11,7 +11,7 @@ export interface Product {
   long_description: string;
   short_description: string;
   product_img: string;
-  brand_id?: Brand;
+  brand_id: Brand;
   store_id?: Store;
 }
 
