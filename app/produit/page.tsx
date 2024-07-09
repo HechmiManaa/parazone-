@@ -119,7 +119,7 @@ const SearchResultPage = ({ searchParams }: { searchParams: any }) => {
   };
 
   return (
-    <div className="w-full mx-auto py-12 bg-gray-100">
+    <div className="w-full mx-auto py-12 bg-gray-100 relative">
       <h1 className="text-2xl font-bold mb-3 text-center">
         Résultat pour "{searchTerm}"
       </h1>
@@ -130,8 +130,8 @@ const SearchResultPage = ({ searchParams }: { searchParams: any }) => {
         />
         <div>
           <div
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5
-           gap-8 mx-2 lg:mx-10"
+            className="flex flex-wrap justify-center gap-4 lg:gap-8
+             w-full mx-auto"
           >
             {paginatedProducts.length > 0 ? (
               paginatedProducts.map((product) => (

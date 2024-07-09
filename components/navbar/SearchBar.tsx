@@ -48,6 +48,7 @@ const SearchBar = () => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Enter" && searchTerm.trim() !== "") {
         router.push(`/produit?search=${encodeURIComponent(searchTerm)}`);
+        setSearchTerm("");
       }
     };
     document.addEventListener("keydown", handleKeyDown);
