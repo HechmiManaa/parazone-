@@ -1,20 +1,13 @@
 "use client";
-
 import { useEffect, useMemo, useState } from "react";
-import { useProductStore } from "@/hooks/useProduct"; // Adjust the import path
-import { ProductCard } from "@/components/ProductCard";
+import { Product, useProductStore } from "@/hooks/useProduct";
+import Filter from "@/components/Filter";
 import Link from "next/link";
-import { useBrandStore } from "@/hooks/useBrand";
-import Filter from "../Filter";
+import { ProductCard } from "@/components/ProductCard";
 
-export default function ProductsPageByBrand({
-  brandSlug,
-}: {
-  brandSlug: string;
-}) {
+const SearchResultPage = ({ searchParams }: { searchParams: any }) => {
+  const [searchedProducts, setSearchedProducts] = useState<Product[]>([]);
   const { products, fetchProducts } = useProductStore();
-  const { Brands, fetchBrands } = useBrandStore();
-
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 25;
   const [selectedBrands, setSelectedBrands] = useState<number[]>([]);
@@ -23,49 +16,74 @@ export default function ProductsPageByBrand({
     Array<{ id: number; label: string; range: { min: number; max: number } }>
   >([]);
 
+  console.log("searchTerm : ", searchParams.search);
+  const searchTerm = searchParams.search;
+
   useEffect(() => {
-    fetchProducts();
-    fetchBrands();
-  }, [fetchProducts, fetchBrands]);
+    if (searchTerm) {
+      const normalizeString = (str: string) =>
+        str
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-z0-9]/g, "");
 
-  const brand = useMemo(
-    () => Brands.find((brand) => brand.slug_title === brandSlug),
-    [brandSlug, Brands]
-  );
+      const normalizedSearchTerm = normalizeString(searchTerm);
+      const results = products.filter((product) => {
+        const normalizedTitle = normalizeString(product.title);
+        return normalizedTitle.includes(normalizedSearchTerm);
+      });
+      setSearchedProducts(results);
+    } else {
+      setSearchedProducts([]);
+    }
+  }, [searchTerm, products]);
 
-  const brandProducts = useMemo(
-    () =>
-      products.filter((product) => product.brand_id?.slug_title === brandSlug),
-    [products, brandSlug]
-  );
+  const filteredProducts = useMemo(() => {
+    let filtered = searchedProducts;
 
-  const totalPages = Math.ceil(brandProducts.length / productsPerPage);
+    if (selectedBrands.length > 0) {
+      filtered = filtered.filter((product) =>
+        selectedBrands.includes(product.brand_id.id)
+      );
+    }
+
+    if (selectedPrices.length > 0) {
+      filtered = filtered.filter((product) => {
+        const price = product.value;
+        return selectedPrices.some((priceId) => {
+          const range = priceRanges.find(
+            (range) => range.id === priceId
+          )?.range;
+          return range ? price >= range.min && price <= range.max : false;
+        });
+      });
+    }
+
+    return filtered;
+  }, [searchedProducts, selectedBrands, selectedPrices, priceRanges]);
+
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
   const paginatedProducts = useMemo(
     () =>
-      brandProducts.slice(
+      filteredProducts.slice(
         (currentPage - 1) * productsPerPage,
         currentPage * productsPerPage
       ),
-    [brandProducts, currentPage, productsPerPage]
+    [filteredProducts, currentPage, productsPerPage]
   );
-
-  const handlePageChange = (newPage: number) => {
-    if (newPage >= 1 && newPage <= totalPages) {
-      setCurrentPage(newPage);
-    }
-  };
 
   const brandProductCounts = useMemo(() => {
     const counts: Record<number, number> = {};
-    brandProducts.forEach((product) => {
+    searchedProducts.forEach((product) => {
       counts[product.brand_id.id] = (counts[product.brand_id.id] || 0) + 1;
     });
     return counts;
-  }, [brandProducts]);
+  }, [searchedProducts]);
 
   const brandsWithProducts = useMemo(() => {
-    return brandProducts
+    return searchedProducts
       .map((product) => product.brand_id)
       .filter(
         (brand, index, self) =>
@@ -76,7 +94,14 @@ export default function ProductsPageByBrand({
         productCount: brandProductCounts[brand.id] || 0,
       }))
       .filter((brand) => brand.productCount > 0);
-  }, [brandProducts, brandProductCounts]);
+  }, [searchedProducts, brandProductCounts]);
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   const handleFilterChange = (
     brands: number[],
@@ -95,7 +120,9 @@ export default function ProductsPageByBrand({
 
   return (
     <div className="w-full mx-auto py-12 bg-gray-100 relative">
-      <h1 className="text-2xl font-bold text-center mb-4">{brand?.title}</h1>
+      <h1 className="text-2xl font-bold mb-3 text-center">
+        Résultat pour "{searchTerm}"
+      </h1>
       <div className="flex">
         <Filter
           onFilterChange={handleFilterChange}
@@ -147,4 +174,6 @@ export default function ProductsPageByBrand({
       </div>
     </div>
   );
-}
+};
+
+export default SearchResultPage;
