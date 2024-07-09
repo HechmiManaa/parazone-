@@ -121,7 +121,7 @@ const SearchResultPage = ({ searchParams }: { searchParams: any }) => {
   return (
     <div className="w-full mx-auto py-12 bg-gray-100 relative">
       <h1 className="text-2xl font-bold mb-3 text-center">
-        Résultat pour "{searchTerm}"
+        Résultat pour &quot;{searchTerm}&quot;
       </h1>
       <div className="flex">
         <Filter
