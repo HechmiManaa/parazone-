@@ -60,7 +60,7 @@ const Filter: React.FC<FilterProps> = ({ brands, onFilterChange }) => {
       } mb-8 absolute top-5 right-5 z-10 md:relative`}
     >
       {/* Button to toggle filter menu visibility */}
-      <div className="block md:hidden rounded absolute right-5">
+      <div className="block md:hidden rounded absolute top-5 right-5 z-10">
         <IoMdOptions onClick={handleMenuClick} size={25} />
       </div>
 
