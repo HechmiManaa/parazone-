@@ -22,7 +22,7 @@ export default function ProductsPageByCategory({
   const parts = pathname.split("/");
   const parentCategory = parts[2];
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 24;
+  const productsPerPage = 25;
   const [selectedBrands, setSelectedBrands] = useState<number[]>([]);
   const [selectedPrices, setSelectedPrices] = useState<number[]>([]);
   const [priceRanges, setPriceRanges] = useState<

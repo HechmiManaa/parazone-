@@ -20,7 +20,7 @@ const MoreInfo = () => {
       <section className="py-12 md:py-20 lg:py-28">
         <div className="container mx-auto px-4 md:px-2">
           <div className="text-center mb-12">
-            <Link href="/stores">
+            <Link href="/magasins">
               <h2 className="text-xl font-extrabold tracking-tight text-gray-800 dark:text-gray-100 sm:text-4xl md:text-5xl lg:text-4xl leading-tight">
                 Explorez nos magasins
               </h2>
