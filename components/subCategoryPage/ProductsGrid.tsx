@@ -1,4 +1,3 @@
-// ProductsPageByCategory.tsx
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -25,13 +24,10 @@ export default function ProductsPageByCategory({
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 24;
   const [selectedBrands, setSelectedBrands] = useState<number[]>([]);
-  const [selectedPriceRanges, setSelectedPriceRanges] = useState<
-    { min: number; max: number }[]
+  const [selectedPrices, setSelectedPrices] = useState<number[]>([]);
+  const [priceRanges, setPriceRanges] = useState<
+    Array<{ id: number; label: string; range: { min: number; max: number } }>
   >([]);
-
-  const [productPrices, setProductPrices] = useState<Record<string, number>>(
-    {}
-  );
 
   useEffect(() => {
     fetchProducts();
@@ -68,8 +64,7 @@ export default function ProductsPageByCategory({
   }, [categoryProducts]);
 
   const brandsWithProducts = useMemo(() => {
-    return products
-      .filter((product) => productIds.includes(product.id))
+    return categoryProducts
       .map((product) => product.brand_id)
       .filter(
         (brand, index, self) =>
@@ -80,7 +75,7 @@ export default function ProductsPageByCategory({
         productCount: brandProductCounts[brand.id] || 0,
       }))
       .filter((brand) => brand.productCount > 0);
-  }, [products, productIds, brandProductCounts]);
+  }, [categoryProducts, brandProductCounts]);
 
   const filteredProducts = useMemo(() => {
     let filtered = categoryProducts;
@@ -91,19 +86,20 @@ export default function ProductsPageByCategory({
       );
     }
 
-    if (selectedPriceRanges.length > 0) {
-      const priceFilter = (product: any) => {
-        const productPrice = productPrices[product.id];
-        return selectedPriceRanges.some((range) => {
-          return productPrice >= range.min && productPrice <= range.max;
+    if (selectedPrices.length > 0) {
+      filtered = filtered.filter((product) => {
+        const price = product.value;
+        return selectedPrices.some((priceId) => {
+          const range = priceRanges.find(
+            (range) => range.id === priceId
+          )?.range;
+          return range ? price >= range.min && price <= range.max : false;
         });
-      };
-
-      filtered = filtered.filter(priceFilter);
+      });
     }
 
     return filtered;
-  }, [categoryProducts, selectedBrands, selectedPriceRanges, productPrices]);
+  }, [categoryProducts, selectedBrands, selectedPrices, priceRanges]);
 
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
@@ -119,22 +115,23 @@ export default function ProductsPageByCategory({
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   const handleFilterChange = (
     brands: number[],
-    prices: { min: number; max: number }[]
+    prices: number[],
+    ranges: Array<{
+      id: number;
+      label: string;
+      range: { min: number; max: number };
+    }>
   ) => {
     setSelectedBrands(brands);
-    setSelectedPriceRanges(
-      prices.map((price) => ({ min: price.min, max: price.max }))
-    );
+    setSelectedPrices(prices);
+    setPriceRanges(ranges);
     setCurrentPage(1); // Reset to first page when filter changes
-  };
-
-  const handlePriceChange = (productId: string, price: number) => {
-    setProductPrices((prevPrices) => ({ ...prevPrices, [productId]: price }));
   };
 
   return (
@@ -164,21 +161,15 @@ export default function ProductsPageByCategory({
                       product_img={product.product_img}
                       brand_id={product.brand_id}
                       new={false}
-                      onPriceChange={(price) =>
-                        handlePriceChange(product.id, price)
-                      }
+                      value={product.value}
                     />
                   </Link>
-                  <div>{productPrices[product.id]}</div>
                 </div>
               ))
             ) : (
-              <div className="text-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-lg py-20">
-                Aucun produit disponible pour la catégorie {category?.name}
-              </div>
+              <p>No products found</p>
             )}
           </div>
-
           {/* Pagination Controls */}
           <div className="flex justify-center mt-8">
             <button

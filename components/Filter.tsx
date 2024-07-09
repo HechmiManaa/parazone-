@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { Brand } from "@/hooks/useBrand";
 
@@ -5,15 +6,25 @@ type FilterProps = {
   brands: Array<Brand & { productCount: number }>;
   onFilterChange: (
     selectedBrands: number[],
-    selectedPriceRanges: { min: number; max: number }[]
+    selectedPrices: number[],
+    priceRanges: Array<{
+      id: number;
+      label: string;
+      range: { min: number; max: number };
+    }>
   ) => void;
 };
 
 const Filter: React.FC<FilterProps> = ({ brands, onFilterChange }) => {
   const [selectedBrands, setSelectedBrands] = useState<number[]>([]);
-  const [selectedPriceRanges, setSelectedPriceRanges] = useState<
-    { min: number; max: number }[]
-  >([]);
+  const [selectedPrices, setSelectedPrices] = useState<number | null>(null);
+
+  const priceRanges = [
+    { id: 1, label: "Under $50", range: { min: 0, max: 50 } },
+    { id: 2, label: "$50 - $100", range: { min: 50, max: 100 } },
+    { id: 3, label: "$100 - $200", range: { min: 100, max: 200 } },
+    { id: 4, label: "Over $200", range: { min: 200, max: Infinity } },
+  ];
 
   const handleBrandChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const brandId = parseInt(event.target.value);
@@ -21,27 +32,18 @@ const Filter: React.FC<FilterProps> = ({ brands, onFilterChange }) => {
       ? [...selectedBrands, brandId]
       : selectedBrands.filter((id) => id !== brandId);
     setSelectedBrands(newSelectedBrands);
-    onFilterChange(newSelectedBrands, selectedPriceRanges);
+    onFilterChange(
+      newSelectedBrands,
+      selectedPrices ? [selectedPrices] : [],
+      priceRanges
+    );
   };
 
-  const handlePriceRangeChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const priceRangeId = parseInt(event.target.value);
-    const newSelectedPriceRanges = event.target.checked
-      ? [priceRanges.find((range) => range.id === priceRangeId)!.range!]
-      : [];
-    setSelectedPriceRanges(newSelectedPriceRanges);
-    onFilterChange(selectedBrands, newSelectedPriceRanges);
+  const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const priceId = parseInt(event.target.value);
+    setSelectedPrices(priceId);
+    onFilterChange(selectedBrands, [priceId], priceRanges);
   };
-
-  // Example price ranges, adjust as per your actual price data
-  const priceRanges = [
-    { id: 1, label: "Under $50", range: { min: 0, max: 50 } },
-    { id: 2, label: "$50 - $100", range: { min: 50, max: 100 } },
-    { id: 3, label: "$100 - $200", range: { min: 100, max: 200 } },
-    { id: 4, label: "Over $200", range: { min: 200, max: Infinity } },
-  ];
 
   return (
     <div className="bg-white p-8 rounded shadow-md mb-8">
@@ -56,11 +58,9 @@ const Filter: React.FC<FilterProps> = ({ brands, onFilterChange }) => {
             <input
               type="radio"
               name="price-range"
+              checked={selectedPrices === range.id}
               value={range.id}
-              checked={selectedPriceRanges.some(
-                (r) => r.min === range.range.min && r.max === range.range.max
-              )}
-              onChange={handlePriceRangeChange}
+              onChange={handlePriceChange}
               className="mr-2"
             />
             <span>{range.label}</span>
