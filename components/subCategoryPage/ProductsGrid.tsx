@@ -135,19 +135,21 @@ export default function ProductsPageByCategory({
   };
 
   return (
-    <div className="w-full mx-auto py-12 bg-gray-100">
+    <div className="min-h-screen w-full mx-auto py-12 bg-gray-100 relative">
       <h1 className="text-2xl ml-4 lg:ml-10 font-bold mb-8 capitalize">
         {category?.name || "Category"}
       </h1>
-      <div className="flex">
-        <Filter
-          onFilterChange={handleFilterChange}
-          brands={brandsWithProducts}
-        />
-        <div>
+      <div className="flex justify-around ">
+        <div className="">
+          <Filter
+            onFilterChange={handleFilterChange}
+            brands={brandsWithProducts}
+          />
+        </div>
+        <div className="w-full mx-auto ">
           <div
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5
-           gap-8 mx-2 lg:mx-10"
+            className="flex flex-wrap justify-center gap-4 lg:gap-8
+             w-full mx-auto"
           >
             {paginatedProducts.length > 0 ? (
               paginatedProducts.map((product) => (
@@ -170,24 +172,27 @@ export default function ProductsPageByCategory({
               <p>No products found</p>
             )}
           </div>
+
           {/* Pagination Controls */}
-          <div className="flex justify-center mt-8">
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-              className="px-4 py-2 mx-1 bg-gray-300 rounded hover:bg-gray-400 disabled:bg-gray-200"
-            >
-              Précédent
-            </button>
-            <span className="px-4 py-2 mx-1">{`Page ${currentPage} sur ${totalPages}`}</span>
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className="px-4 py-2 mx-1 bg-gray-300 rounded hover:bg-gray-400 disabled:bg-gray-200"
-            >
-              Suivant
-            </button>
-          </div>
+          {totalPages !== 1 && (
+            <div className="flex justify-center mt-8">
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="px-4 py-2 mx-1 bg-gray-300 rounded hover:bg-gray-400 disabled:bg-gray-200"
+              >
+                Précédent
+              </button>
+              <span className="px-4 py-2 mx-1">{`Page ${currentPage} sur ${totalPages}`}</span>
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 mx-1 bg-gray-300 rounded hover:bg-gray-400 disabled:bg-gray-200"
+              >
+                Suivant
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
