@@ -34,16 +34,14 @@ const BrandsPage = () => {
           brand.slug_title &&
           brand.logo !== "URL du logo de la marque non trouvé" && (
             <Link href={`/marques/${brand.slug_title}`} key={brand.id}>
-              <div className="cursor-pointer  bg-white hover:bg-gray-100 dark:bg-gray-950 rounded-lg shadow-md p-6 w-56 text-center flex flex-col items-center justify-between">
-                <div className="flex items-center justify-center mb-4">
-                  <Image
-                    src={brand.logo}
-                    alt={brand.title}
-                    width={100}
-                    height={100}
-                    className="object-cover rounded-full w-full"
-                  />
-                </div>
+              <div className="cursor-pointer  bg-white hover:bg-gray-100 dark:bg-gray-950 rounded-lg shadow-md p-6 w-44 h-48 text-center flex flex-col items-center justify-between">
+                <Image
+                  src={brand.logo}
+                  alt={brand.title}
+                  width={100}
+                  height={100}
+                  className="object-cover rounded-full w-full"
+                />
 
                 <div className="text-sm text-gray-500 dark:text-gray-400">
                   {brandProductCounts[brand.id] || 0} produits

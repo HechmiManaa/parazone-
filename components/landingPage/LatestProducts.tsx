@@ -75,7 +75,7 @@ export const LatestProducts = () => {
         <h2 className="text-center text-2xl mb-2 font-extrabold text-black py-2 pb-5">
           Derniers produits
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8 mx-2 lg:mx-10">
+        <div className="flex flex-wrap justify-center gap-8 mx-2 lg:mx-10">
           {filteredProducts
             .slice(-6)
             .reverse()
