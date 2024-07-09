@@ -130,10 +130,12 @@ const BlogPage = ({ slug }: { slug: string }) => {
             <Link href={`/produit/${product.product_id.slug}`} key={product.id}>
               <div key={product.id}>
                 <ProductCard
+                  id={product.product_id.id}
                   title={product.product_id.title}
                   product_img={product.product_id.product_img}
                   brand_id={product.product_id.brand_id}
                   new={false}
+                  onPriceChange={() => null}
                 />
               </div>
             </Link>

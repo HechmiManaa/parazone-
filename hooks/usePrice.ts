@@ -7,7 +7,6 @@ export interface Price {
   id: number;
   title: string;
   value: number;
-  product_img: string;
   product_url: string;
   availability?: string | null;
   rating?: number | null;
@@ -16,7 +15,6 @@ export interface Price {
   delivery_time?: string | null;
   offer?: string | null;
   scraping_time: string;
-  brand_id?: number | null;
   store_id?: Store;
   product_id: number;
 }

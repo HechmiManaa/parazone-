@@ -85,10 +85,12 @@ export const LatestProducts = () => {
                 href={`/category/${product.parentCategorySlug}/${product.subCategorySlug}/${product.slug}`}
               >
                 <ProductCard
+                  id={product.id}
                   title={product.title}
                   product_img={product.product_img}
                   brand_id={product.brand_id}
                   new={true}
+                  value={product.value}
                 />
               </Link>
             ))}

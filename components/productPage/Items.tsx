@@ -54,10 +54,10 @@ const Items: React.FC<ItemProps> = ({ productId, productSlug }) => {
             <table className="table table-zebra">
               <thead>
                 <tr>
-                  <th>Offre Title</th>
+                  <th>Titre</th>
                   <th>Magasin</th>
-                  <th>Price</th>
-                  <th>livraison info</th>
+                  <th>Prix</th>
+                  <th>Information de livraison</th>
                   <th>Disponibilité</th>
                   <th>Offre</th>
                 </tr>

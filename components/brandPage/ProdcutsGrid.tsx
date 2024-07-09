@@ -62,10 +62,12 @@ export default function ProductsPageByBrand({
             <div key={product.id}>
               <Link href={`/marques/${brand?.slug_title}/${product?.slug}`}>
                 <ProductCard
+                  id={product.id}
                   title={product.title}
                   product_img={product.product_img}
                   brand_id={product.brand_id}
                   new={false}
+                  value={product.value}
                 />
               </Link>
             </div>
