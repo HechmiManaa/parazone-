@@ -135,7 +135,7 @@ const BlogPage = ({ slug }: { slug: string }) => {
                   product_img={product.product_id.product_img}
                   brand_id={product.product_id.brand_id}
                   new={false}
-                  onPriceChange={() => null}
+                  value={product.product_id.value}
                 />
               </div>
             </Link>
