@@ -1,4 +1,3 @@
-// ProductCard.tsx
 import Image from "next/image";
 import { Brand } from "@/hooks/useBrand";
 
@@ -11,22 +10,21 @@ export interface ProductCardProps {
   new: boolean;
 }
 
-export function ProductCard({
-  id,
+export const ProductCard: React.FC<ProductCardProps> = ({
   title,
   product_img,
-  brand_id,
   value,
+  brand_id,
   new: isNew,
-}: ProductCardProps) {
+}) => {
   return (
     <div className="card w-40 h-52 lg:h-72 lg:w-56 bg-base-100 border-2 border-neutral-300 relative">
       <figure className="p-2">
         <Image
           alt={title}
-          src={`${product_img}`}
-          width={500}
-          height={500}
+          src={product_img}
+          width={300}
+          height={300}
           className="object-cover rounded-full w-full h-28 lg:h-36 mt-4"
         />
       </figure>
@@ -53,9 +51,9 @@ export function ProductCard({
 
         <div className="flex justify-start items-center gap-2">
           <div className="text-xs">à partir de</div>
-          <div className=" green">{value} DT</div>
+          <div className="text-green-500">{value} DT</div>
         </div>
       </div>
     </div>
   );
-}
+};

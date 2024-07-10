@@ -44,8 +44,8 @@ const Hero = () => {
                   <Image
                     src={image.imgUrl}
                     alt={image.alt}
-                    width={1000}
-                    height={1000}
+                    width={500}
+                    height={500}
                     className="object-cover"
                   />
                 </div>

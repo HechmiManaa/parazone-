@@ -58,7 +58,7 @@ const SearchBar = () => {
   }, [searchTerm, router]);
 
   useEffect(() => {
-    if (searchTerm) {
+    if (searchTerm.length > 2) {
       const normalizeString = (str: string) =>
         str
           .toLowerCase()
@@ -111,9 +111,9 @@ const SearchBar = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
-      {searchTerm && (
+      {searchTerm.length > 2 && (
         <div className="absolute bg-white h-64 overflow-y-auto p-4 w-full shadow-2xl mt-2 rounded-lg">
-          {filteredProducts.length > 0 ? (
+          {filteredProducts.length > 0 && (
             <div className="flex flex-col justify-center gap-1">
               {filteredProductsById.map((product) => (
                 <Link
@@ -136,8 +136,6 @@ const SearchBar = () => {
                 </Link>
               ))}
             </div>
-          ) : (
-            <p>No products found</p>
           )}
         </div>
       )}
