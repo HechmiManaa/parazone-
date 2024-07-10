@@ -76,13 +76,12 @@ const Filter: React.FC<FilterProps> = ({
     setSelectedPrices(null);
     onFilterChange([], [], priceRanges);
     setSelectedSort("");
+    onSortChange("");
   };
-
-  console.log("s");
 
   return (
     <div
-      className={`ml-8 px-2 w-64 md:bg-white md:shadow-md rounded-xl ${
+      className={`ml-8 px-2 w-64 md:bg-white md:shadow-md rounded-xl h-full ${
         isFiltreOpen ? "bg-white shadow-md" : ""
       } mb-8 absolute top-5 right-5 z-10 md:relative`}
     >
@@ -139,29 +138,31 @@ const Filter: React.FC<FilterProps> = ({
             </label>
           ))}
         </div>
-        <div className="flex flex-col my-4">
-          <h4 className="text-sm font-semibold mb-2">Brand</h4>
-          <div className="overflow-auto h-96 border border-gray-300 rounded-lg w-full">
-            {brands.map((brand) => (
-              <label
-                key={brand.id}
-                className="flex items-center cursor-pointer hover:bg-gray-100 p-2 rounded-md"
-              >
-                <input
-                  type="checkbox"
-                  value={brand.id}
-                  checked={selectedBrands.includes(brand.id)}
-                  onChange={handleBrandChange}
-                  className="mr-2"
-                />
-                <span className="flex-grow">{brand.title}</span>
-                <span className="text-sm text-gray-600">
-                  ({brand.productCount})
-                </span>
-              </label>
-            ))}
+        {brands.length > 0 && (
+          <div className="flex flex-col my-4">
+            <h4 className="text-sm font-semibold mb-2">Brand</h4>
+            <div className="overflow-auto h-96 border border-gray-300 rounded-lg w-full">
+              {brands.map((brand) => (
+                <label
+                  key={brand.id}
+                  className="flex items-center cursor-pointer hover:bg-gray-100 p-2 rounded-md"
+                >
+                  <input
+                    type="checkbox"
+                    value={brand.id}
+                    checked={selectedBrands.includes(brand.id)}
+                    onChange={handleBrandChange}
+                    className="mr-2"
+                  />
+                  <span className="flex-grow">{brand.title}</span>
+                  <span className="text-sm text-gray-600">
+                    ({brand.productCount})
+                  </span>
+                </label>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
