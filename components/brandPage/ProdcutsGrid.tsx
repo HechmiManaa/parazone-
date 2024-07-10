@@ -19,6 +19,7 @@ export default function ProductsPageByBrand({
   const productsPerPage = 25;
   const [selectedBrands, setSelectedBrands] = useState<number[]>([]);
   const [selectedPrices, setSelectedPrices] = useState<number[]>([]);
+  const [selectedSort, setSelectedSort] = useState<string>("");
   const [priceRanges, setPriceRanges] = useState<
     Array<{ id: number; label: string; range: { min: number; max: number } }>
   >([]);
@@ -39,15 +40,59 @@ export default function ProductsPageByBrand({
     [products, brandSlug]
   );
 
-  const totalPages = Math.ceil(brandProducts.length / productsPerPage);
+  const sortProducts = (products: any[], sortOption: string) => {
+    switch (sortOption) {
+      case "price-asc":
+        return products.sort((a, b) => a.value - b.value);
+      case "price-desc":
+        return products.sort((a, b) => b.value - a.value);
+      case "name-asc":
+        return products.sort((a, b) => a.title.localeCompare(b.title));
+      case "name-desc":
+        return products.sort((a, b) => b.title.localeCompare(a.title));
+      default:
+        return products;
+    }
+  };
+
+  const filteredProducts = useMemo(() => {
+    let filtered = brandProducts;
+
+    if (selectedBrands.length > 0) {
+      filtered = filtered.filter((product) =>
+        selectedBrands.includes(product.brand_id.id)
+      );
+    }
+
+    if (selectedPrices.length > 0) {
+      filtered = filtered.filter((product) => {
+        const price = product.value;
+        return selectedPrices.some((priceId) => {
+          const range = priceRanges.find(
+            (range) => range.id === priceId
+          )?.range;
+          return range ? price >= range.min && price <= range.max : false;
+        });
+      });
+    }
+
+    return filtered;
+  }, [brandProducts, selectedBrands, selectedPrices, priceRanges]);
+
+  const sortedProducts = useMemo(() => {
+    const sorted = sortProducts([...filteredProducts], selectedSort);
+    return sorted;
+  }, [filteredProducts, selectedSort]);
+
+  const totalPages = Math.ceil(sortedProducts.length / productsPerPage);
 
   const paginatedProducts = useMemo(
     () =>
-      brandProducts.slice(
+      sortedProducts.slice(
         (currentPage - 1) * productsPerPage,
         currentPage * productsPerPage
       ),
-    [brandProducts, currentPage, productsPerPage]
+    [sortedProducts, currentPage, productsPerPage]
   );
 
   const handlePageChange = (newPage: number) => {
@@ -55,28 +100,6 @@ export default function ProductsPageByBrand({
       setCurrentPage(newPage);
     }
   };
-
-  const brandProductCounts = useMemo(() => {
-    const counts: Record<number, number> = {};
-    brandProducts.forEach((product) => {
-      counts[product.brand_id.id] = (counts[product.brand_id.id] || 0) + 1;
-    });
-    return counts;
-  }, [brandProducts]);
-
-  const brandsWithProducts = useMemo(() => {
-    return brandProducts
-      .map((product) => product.brand_id)
-      .filter(
-        (brand, index, self) =>
-          brand && self.findIndex((b) => b.id === brand.id) === index
-      )
-      .map((brand) => ({
-        ...brand,
-        productCount: brandProductCounts[brand.id] || 0,
-      }))
-      .filter((brand) => brand.productCount > 0);
-  }, [brandProducts, brandProductCounts]);
 
   const handleFilterChange = (
     brands: number[],
@@ -92,6 +115,10 @@ export default function ProductsPageByBrand({
     setPriceRanges(ranges);
     setCurrentPage(1); // Reset to first page when filter changes
   };
+  const handleSortChange = (sortOption: string) => {
+    setSelectedSort(sortOption);
+    setCurrentPage(1); // Reset to first page when sort changes
+  };
 
   return (
     <div className="w-full mx-auto py-12 bg-gray-100 relative">
@@ -99,7 +126,8 @@ export default function ProductsPageByBrand({
       <div className="flex">
         <Filter
           onFilterChange={handleFilterChange}
-          brands={brandsWithProducts}
+          brands={[]}
+          onSortChange={handleSortChange}
         />
         <div>
           <div

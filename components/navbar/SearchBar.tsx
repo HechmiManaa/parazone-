@@ -77,27 +77,9 @@ const SearchBar = () => {
     }
   }, [searchTerm, products]);
 
-  const getParentCategorySlug = (productId: string) => {
-    const relation = relations.find(
-      (relation) => String(relation.product_id) === productId
-    );
-    if (relation) {
-      const parentCategory = categories.find(
-        (category) => category.id === Number(relation.category_id)
-      );
-      return parentCategory ? parentCategory.slug : null;
-    }
-    return null;
-  };
-
-  const filteredProductsById = filteredProducts
-    .filter((product) =>
-      relations.some((relation) => relation.product_id === product.id)
-    )
-    .map((product) => ({
-      ...product,
-      parentCategorySlug: getParentCategorySlug(product.id),
-    }));
+  const filteredProductsById = filteredProducts.filter((product) =>
+    relations.some((relation) => relation.product_id === product.id)
+  );
 
   return (
     <div ref={searchBarRef} className="relative z-20">
@@ -112,14 +94,15 @@ const SearchBar = () => {
         />
       </div>
       {searchTerm.length > 2 && (
-        <div className="absolute bg-white h-64 overflow-y-auto p-4 w-full shadow-2xl mt-2 rounded-lg">
-          {filteredProducts.length > 0 && (
+        <div className="absolute bg-white max-h-64 overflow-y-auto p-4 w-full shadow-2xl mt-2 rounded-lg">
+          {filteredProducts.length > 0 ? (
             <div className="flex flex-col justify-center gap-1">
               {filteredProductsById.map((product) => (
                 <Link
                   key={product.id}
-                  href={`/category/${product.parentCategorySlug}/${product.slug}`}
+                  href={`/produit/${product.slug}`}
                   passHref
+                  onClick={() => setSearchTerm("")}
                 >
                   <div className="cursor-pointer hover:text-blue-500">
                     <div className="flex items-center gap-2 w-full hover:border-2 rounded-lg transition duration-300 ease-in-out">
@@ -135,6 +118,12 @@ const SearchBar = () => {
                   </div>
                 </Link>
               ))}
+            </div>
+          ) : (
+            <div className="flex flex-col justify-center gap-1">
+              <div className="text-center text-gray-500">
+                Aucun produit ne correspond à votre recherche
+              </div>
             </div>
           )}
         </div>

@@ -25,6 +25,7 @@ export default function ProductsPageByCategory({
   const productsPerPage = 25;
   const [selectedBrands, setSelectedBrands] = useState<number[]>([]);
   const [selectedPrices, setSelectedPrices] = useState<number[]>([]);
+  const [selectedSort, setSelectedSort] = useState<string>("");
   const [priceRanges, setPriceRanges] = useState<
     Array<{ id: number; label: string; range: { min: number; max: number } }>
   >([]);
@@ -101,15 +102,35 @@ export default function ProductsPageByCategory({
     return filtered;
   }, [categoryProducts, selectedBrands, selectedPrices, priceRanges]);
 
-  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+  const sortProducts = (products: any[], sortOption: string) => {
+    switch (sortOption) {
+      case "price-asc":
+        return products.sort((a, b) => a.value - b.value);
+      case "price-desc":
+        return products.sort((a, b) => b.value - a.value);
+      case "name-asc":
+        return products.sort((a, b) => a.title.localeCompare(b.title));
+      case "name-desc":
+        return products.sort((a, b) => b.title.localeCompare(a.title));
+      default:
+        return products;
+    }
+  };
+
+  const sortedProducts = useMemo(() => {
+    const sorted = sortProducts([...filteredProducts], selectedSort);
+    return sorted;
+  }, [filteredProducts, selectedSort]);
+
+  const totalPages = Math.ceil(sortedProducts.length / productsPerPage);
 
   const paginatedProducts = useMemo(
     () =>
-      filteredProducts.slice(
+      sortedProducts.slice(
         (currentPage - 1) * productsPerPage,
         currentPage * productsPerPage
       ),
-    [filteredProducts, currentPage, productsPerPage]
+    [sortedProducts, currentPage, productsPerPage]
   );
 
   const handlePageChange = (newPage: number) => {
@@ -134,6 +155,11 @@ export default function ProductsPageByCategory({
     setCurrentPage(1); // Reset to first page when filter changes
   };
 
+  const handleSortChange = (sortOption: string) => {
+    setSelectedSort(sortOption);
+    setCurrentPage(1); // Reset to first page when sort changes
+  };
+
   return (
     <div className="min-h-screen w-full mx-auto py-12 bg-gray-100 relative">
       <h1 className="text-2xl ml-4 lg:ml-10 font-bold mb-8 capitalize">
@@ -144,6 +170,7 @@ export default function ProductsPageByCategory({
           <Filter
             onFilterChange={handleFilterChange}
             brands={brandsWithProducts}
+            onSortChange={handleSortChange}
           />
         </div>
         <div className="w-full mx-auto ">
