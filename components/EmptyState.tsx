@@ -24,7 +24,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({ title, showReset }) => {
       <div className="w-52 mt-4">
         {showReset && (
           <button onClick={() => router.push("/")}>
-            Aller à la page d'accueil
+            Aller à la page d&apos;accueil
           </button>
         )}
       </div>
