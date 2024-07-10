@@ -153,7 +153,7 @@ const SearchPage = ({ searchParams }: { searchParams: any }) => {
         <Filter
           onFilterChange={handleFilterChange}
           brands={brandsWithProducts}
-          onSortChange={handleSortChange}
+          onSortChange={handleSortChange} // Ensure this is provided
         />
         <div>
           <div
