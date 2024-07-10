@@ -78,6 +78,8 @@ const Filter: React.FC<FilterProps> = ({
     setSelectedSort("");
   };
 
+  console.log("s");
+
   return (
     <div
       className={`ml-8 px-2 w-64 md:bg-white md:shadow-md rounded-xl ${

@@ -14,7 +14,6 @@ const MoreInfo = () => {
     fetchStores();
     fetchBrands();
   }, [fetchStores, fetchBrands]);
-
   return (
     <>
       <section className="py-12 md:py-20 lg:py-28">

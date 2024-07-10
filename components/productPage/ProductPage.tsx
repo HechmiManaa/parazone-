@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { useRelationStore } from "@/hooks/useRelation";
 import ProductRelatedProducts from "@/components/productPage/RelatedProducts";
 import Items from "@/components/productPage/Items";
+import Loader from "../Loader";
 
 export default function ProductPage({ productSlug }: { productSlug: string }) {
   const [product, setProduct] = useState<Product | null>();
@@ -84,7 +85,7 @@ export default function ProductPage({ productSlug }: { productSlug: string }) {
   }, [Prices, productSlug, product?.id]);
 
   if (!product) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   const handleToggleShowMore = () => {
