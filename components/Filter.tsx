@@ -53,6 +53,8 @@ const Filter: React.FC<FilterProps> = ({ brands, onFilterChange }) => {
     setIsFiltreOpen(!isFiltreOpen);
   };
 
+  console.log("s");
+
   return (
     <div
       className={`ml-8 px-2 w-64 md:bg-white md:shadow-md rounded-xl ${

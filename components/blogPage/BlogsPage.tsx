@@ -21,8 +21,8 @@ const BlogsPage = () => {
                 <Image
                   src={`https://admin.parazone.tn/assets/${blog.image}`}
                   alt={blog.title}
-                  width={500}
-                  height={500}
+                  width={300}
+                  height={300}
                   className="h-40 w-60 lg:h-60 lg:w-96 object-cover rounded-2xl"
                 />
               </div>

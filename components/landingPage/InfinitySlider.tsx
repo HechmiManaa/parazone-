@@ -7,6 +7,8 @@ interface SlideProps {
   slides: Brand[];
 }
 
+console.log("tsx");
+
 const InfinitySlider: React.FC<SlideProps> = ({ slides }) => {
   return (
     <div className="slider-wrapper">
