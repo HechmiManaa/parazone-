@@ -138,7 +138,7 @@ const Filter: React.FC<FilterProps> = ({
             </label>
           ))}
         </div>
-        {brands.length > 0 && (
+        {brands.length > 1 && (
           <div className="flex flex-col my-4">
             <h4 className="text-sm font-semibold mb-2">Brand</h4>
             <div className="overflow-auto h-96 border border-gray-300 rounded-lg w-full">
