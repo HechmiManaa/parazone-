@@ -14,17 +14,30 @@ type FilterProps = {
       range: { min: number; max: number };
     }>
   ) => void;
+  onSortChange: (sortOption: string) => void; // New prop for sort change
 };
 
-const Filter: React.FC<FilterProps> = ({ brands, onFilterChange }) => {
+const Filter: React.FC<FilterProps> = ({
+  brands,
+  onFilterChange,
+  onSortChange,
+}) => {
   const [selectedBrands, setSelectedBrands] = useState<number[]>([]);
   const [selectedPrices, setSelectedPrices] = useState<number | null>(null);
+  const [selectedSort, setSelectedSort] = useState<string>(""); // State for sorting
 
   const priceRanges = [
     { id: 1, label: "Under $50", range: { min: 0, max: 50 } },
     { id: 2, label: "$50 - $100", range: { min: 50, max: 100 } },
     { id: 3, label: "$100 - $200", range: { min: 100, max: 200 } },
     { id: 4, label: "Over $200", range: { min: 200, max: Infinity } },
+  ];
+
+  const sortOptions = [
+    { value: "price-asc", label: "Prix : Moins cher" },
+    { value: "price-desc", label: "Prix : Plus cher" },
+    { value: "name-asc", label: "Nom : A-Z" },
+    { value: "name-desc", label: "Nom : Z-A" },
   ];
 
   const handleBrandChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +57,12 @@ const Filter: React.FC<FilterProps> = ({ brands, onFilterChange }) => {
     const priceId = parseInt(event.target.value);
     setSelectedPrices(priceId);
     onFilterChange(selectedBrands, [priceId], priceRanges);
+  };
+
+  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const sortOption = event.target.value;
+    setSelectedSort(sortOption);
+    onSortChange(sortOption);
   };
 
   // open and close filter
@@ -66,10 +85,26 @@ const Filter: React.FC<FilterProps> = ({ brands, onFilterChange }) => {
 
       {/* Filter menu content with animation */}
       <div
-        className={`mt-4 ml-4  transition-all duration-500 ease-in-out transform  ${
+        className={`mt-4 ml-4 transition-all duration-500 ease-in-out transform ${
           isFiltreOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
         } overflow-hidden md:max-h-full md:opacity-100`}
       >
+        <div className="my-4">
+          <select
+            value={selectedSort}
+            onChange={handleSortChange}
+            className="border border-gray-300 rounded-md w-full p-2 hover:bg-gray-100 cursor-pointer"
+          >
+            <option value="" disabled>
+              Trier par
+            </option>
+            {sortOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
         <div className="mt-4 w-full mx-auto">
           <h4 className="text-sm font-semibold mb-2">Price Range</h4>
           {priceRanges.map((range) => (
@@ -91,11 +126,11 @@ const Filter: React.FC<FilterProps> = ({ brands, onFilterChange }) => {
         </div>
         <div className="flex flex-col my-4">
           <h4 className="text-sm font-semibold mb-2">Brand</h4>
-          <div className="overflow-auto h-96  border border-gray-300 rounded-lg w-full">
+          <div className="overflow-auto h-96 border border-gray-300 rounded-lg w-full">
             {brands.map((brand) => (
               <label
                 key={brand.id}
-                className="flex items-center  cursor-pointer hover:bg-gray-100 p-2 rounded-md"
+                className="flex items-center cursor-pointer hover:bg-gray-100 p-2 rounded-md"
               >
                 <input
                   type="checkbox"
