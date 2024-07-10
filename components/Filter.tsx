@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Brand } from "@/hooks/useBrand";
 import { IoMdOptions } from "react-icons/io";
-
+import { MdFilterAltOff } from "react-icons/md";
 type FilterProps = {
   brands: Array<Brand & { productCount: number }>;
   onFilterChange: (
@@ -71,6 +71,12 @@ const Filter: React.FC<FilterProps> = ({
   const handleMenuClick = () => {
     setIsFiltreOpen(!isFiltreOpen);
   };
+  const handleFilterReset = () => {
+    setSelectedBrands([]);
+    setSelectedPrices(null);
+    onFilterChange([], [], priceRanges);
+    setSelectedSort("");
+  };
 
   return (
     <div
@@ -85,10 +91,17 @@ const Filter: React.FC<FilterProps> = ({
 
       {/* Filter menu content with animation */}
       <div
-        className={`mt-4 ml-4 transition-all duration-500 ease-in-out transform ${
+        className={`mt-4 ml-4 pt-10 md:pt-0 transition-all duration-500 ease-in-out transform ${
           isFiltreOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
         } overflow-hidden md:max-h-full md:opacity-100`}
       >
+        <div
+          className="cursor-pointer  flex justify-center p-2 m-2 gap-2 border-2 "
+          onClick={handleFilterReset}
+        >
+          <h4 className="text-sm font-semibold">Réinitialiser le filtre</h4>
+          <MdFilterAltOff size={25} />
+        </div>
         <div className="my-4">
           <select
             value={selectedSort}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Product, useProductStore } from "@/hooks/useProduct";
+import { useProductStore } from "@/hooks/useProduct";
 import { ProductCard } from "@/components/ProductCard";
 import { useCategoryStore } from "@/hooks/useCategory";
 import { useRelationStore } from "@/hooks/useRelation";
@@ -102,7 +102,7 @@ export default function ProductsPageByCategory({
     return filtered;
   }, [categoryProducts, selectedBrands, selectedPrices, priceRanges]);
 
-  const sortProducts = (products: Product[], sortOption: string) => {
+  const sortProducts = (products: any[], sortOption: string) => {
     switch (sortOption) {
       case "price-asc":
         return products.sort((a, b) => a.value - b.value);
@@ -117,10 +117,10 @@ export default function ProductsPageByCategory({
     }
   };
 
-  const sortedProducts = useMemo(
-    () => sortProducts(filteredProducts, selectedSort),
-    [filteredProducts, selectedSort]
-  );
+  const sortedProducts = useMemo(() => {
+    const sorted = sortProducts([...filteredProducts], selectedSort);
+    return sorted;
+  }, [filteredProducts, selectedSort]);
 
   const totalPages = Math.ceil(sortedProducts.length / productsPerPage);
 

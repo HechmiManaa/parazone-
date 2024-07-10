@@ -77,7 +77,7 @@ export const LatestProducts = () => {
         </h2>
         <div className="flex flex-wrap justify-center gap-8 mx-2 lg:mx-10">
           {filteredProducts
-            .slice(-6)
+            .slice(-5)
             .reverse()
             .map((product) => (
               <Link
