@@ -1,4 +1,4 @@
-import BrandProductPage from "@/components/brandPage/BrandProductPage";
+import SearchProductPage from "@/components/searchPage/SearchProductPage";
 import { Metadata } from "next";
 
 // Capitalize each word in the slug
@@ -26,5 +26,5 @@ export default function Page({
     productSlug: string;
   };
 }) {
-  return <BrandProductPage productSlug={params.productSlug} />;
+  return <SearchProductPage productSlug={params.productSlug} />;
 }
